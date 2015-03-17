@@ -24,6 +24,7 @@
         <!-- endbuild -->
 
         <link rel="stylesheet" type="text/css" href="/css/map.css">
+        <link rel="stylesheet" type="text/css" href="/css/data.css">
     </head>
     <body>
 
@@ -43,16 +44,13 @@
                 <button type="button"
                     class="btn btn--navigation btn--light-navigation"
                     id="navigation-toggle"
-                    ng-click="expandToggle()"
                     aria-controls="navigation"
                     aria-haspopup="true"
                     aria-label="Mobile navigation"
                     >
                     <i class="icon nav-burger--dark "></i>
                 </button>
-                <nav id="navigation" role="navigation" class="navigation navigation--light"
-                    ng-class="{ 'navigation--collapsed' : !expanded }">
-
+                <nav id="navigation" role="navigation" class="navigation navigation--light">
                     <ul class="list-plain">
                         <li>
                         <a href="https://voteforpolicies.org.uk/">Return to main site</a>
@@ -83,13 +81,14 @@
 
                 </div>
             </div>
-            <!--
             <div class="l-constrain">
                 <div class="l-constrain__inner">
-                    ...
+                    <div class="content__wrap">
+                        <p>Data updated every hour</p>
+                        <a href="https://github.com/martinjc/UK-GeoJSON">GeoJSON and TopoJSON UK Boundary Data</a> by Martin Chorley is licensed under a Creative Commons Attribution 4.0 International License
+                    </div>
                 </div>
             </div>
-            -->
         </div>
 
         <footer class="footer">
@@ -114,12 +113,11 @@
         } catch (e) {}
         </script>
 
-        <!-- TODO - Local copies for d3 and TopoJSON -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/vendor/d3.3.4.11.js"></script>
+        <script src="/js/vendor/topojson.1.1.0.min.js"></script>
         <script src="/js/map.js"></script>
 
-        <!--
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -129,7 +127,6 @@
           ga('create', 'UA-15339257-4', 'auto');
           ga('send', 'pageview');
         </script>
-        -->
 
     </body>
 </html>
