@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en-GB">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <title>Vote for Policies Data</title>
+
+        <!-- https://github.com/h5bp/html5-boilerplate/issues/378#issuecomment-1211993 -->
+
+        <!--[if IE 8]>
+        <html lang="en-GB" class="no-js lt-ie9"><![endif]-->
+
+        <!--[if gt IE 8]><!-->
+        <html lang="en-GB" class="no-js no-legacy-ie"> <!--<![endif]-->
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- prod:oldie.css -->
+        <!--[if lte IE 8]><link rel="stylesheet" href="/dist/css/oldie.css/oldie_f1ee6a1f1161b53a7213000eb571c570.css"><![endif]-->
+        <!-- endbuild -->
+
+        <!-- prod:frontend.css -->
+        <!--[if gt IE 8]><!--><link rel="stylesheet" href="/dist/css/frontend.css/frontend_2e196e9392cd23b2299c00b0d94b6451.css"><!--<![endif]-->
+        <!-- endbuild -->
+
+        <link rel="stylesheet" type="text/css" href="/css/map.css">
+    </head>
+    <body>
+
+        <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+            your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="masthead  masthead--light " role="banner"  vfp-show-hide>
+            <div class="l-constrain l-constrain--pad-up l-constrain--relative-desktop">
+                <div class="masthead__logo">
+                    <a href="/" class="brand  brand--white ">
+                        <span class="u-visuallyhidden">Vote for Policies</span>
+                        <i class="icon logo"></i>
+                    </a>
+                </div>
+                <button type="button"
+                    class="btn btn--navigation btn--light-navigation"
+                    id="navigation-toggle"
+                    ng-click="expandToggle()"
+                    aria-controls="navigation"
+                    aria-haspopup="true"
+                    aria-label="Mobile navigation"
+                    >
+                    <i class="icon nav-burger--dark "></i>
+                </button>
+                <nav id="navigation" role="navigation" class="navigation navigation--light"
+                    ng-class="{ 'navigation--collapsed' : !expanded }">
+
+                    <ul class="list-plain">
+                        <li>
+                        <a href="https://voteforpolicies.org.uk/">Return to main site</a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+
+        <div role="main" class="u-page-padding">
+            <div class="hero">
+                <div class="l-constrain">
+                    <h1 class="hero__impact">
+                        Vote for Policies Data
+                    </h1>
+                    <h2 class="hero__strapline">
+                        Leading party for each constituency
+                    </h2>
+
+                    <!-- TODO - Refactor -->
+                    <div id="left_column">
+                        <section id="data_table"></section>
+                    </div>
+                    <div id="right_column">
+                        <section id="map"></section>
+                    </div>
+
+                </div>
+            </div>
+            <!--
+            <div class="l-constrain">
+                <div class="l-constrain__inner">
+                    ...
+                </div>
+            </div>
+            -->
+        </div>
+
+        <footer class="footer">
+            <div role="contentinfo">
+                <section class="panel panel--footer u-no-margin">
+                    <div class="l-constrain">
+                        <div class="footer__meta">
+                            <p class="u-no-margin">
+                            <span>&copy; Vote for Policies 2015</span>
+                            Vote for Policies is an independent non-profit organisation registered in the United Kingdom (no. 8198015)
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </footer>
+
+        <script src="//use.typekit.net/drn1lhk.js"></script>
+        <script>
+        try {
+            Typekit.load();
+        } catch (e) {}
+        </script>
+
+        <!-- TODO - Local copies for d3 and TopoJSON -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
+        <script src="/js/map.js"></script>
+
+        <!--
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-15339257-4', 'auto');
+          ga('send', 'pageview');
+        </script>
+        -->
+
+    </body>
+</html>
