@@ -3,3 +3,19 @@
     border-radius: 5px;
     padding: 1em;
 }
+
+.tabber__nav__link.hidden {
+    display: none;
+}
+
+.tabber__tab {
+    display: none;
+}
+.tabber__tab.active {
+    display: block;
+}
+
+#constituencies-list {
+    text-align: left;
+}
+
