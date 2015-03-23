@@ -1,4 +1,4 @@
-(function() {
+; (function(CONFIG, d3) {
 
     var width = 594, height = 806;
 
@@ -133,7 +133,7 @@
 
     function loadData() {
 
-        d3.json('https://api.voteforpolicies.org.uk/v1/constituencies/results/parties.json?filters=leading', function(error, results) {
+        d3.json(CONFIG.apiBaseUrl + '/constituencies/results/parties.json?filters=leading', function(error, results) {
             if (error) {
                 return console.error(error);
             }
@@ -208,4 +208,4 @@
 
     loadData();
 
-})();
+})(VFP_DATA_CONFIG, d3);
