@@ -1,3 +1,3 @@
 var VFP_DATA_CONFIG = {
-    apiBaseUrl: 'http://api.voteforpolicies.dev/v1'
+    apiBaseUrl: 'https://api.voteforpolicies.org.uk/v1'
 };
