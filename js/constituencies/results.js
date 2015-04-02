@@ -1,15 +1,22 @@
-; var ConstituencyResults = (function(CONFIG, d3) {
+; var ConstituencyResults = (function(CONFIG, d3, _, nimble) {
 
     var config;
     var cache = {};
 
-    // Load list of constituencies
-    d3.json(CONFIG.apiBaseUrl + '/constituencies.json', displayConstituenciesList);
+    function init() {
+        setEventHandlers();
 
-    // Load constituency results HTML template
-    d3.text('/partials/constituency-results.html', cacheHtmlTemplate);
-
-    setEventHandlers();
+        nimble.parallel([
+            // Load list of constituencies
+            function(callback) {
+                d3.json(CONFIG.apiBaseUrl + '/constituencies.json', handleConstituenciesList(callback));
+            },
+            // Load constituency results HTML template
+            function(callback) {
+                d3.text('/partials/constituency-results.html', templateLoaded(callback));
+            }
+        ], checkLocationHash);
+    }
 
     function setEventHandlers() {
 
@@ -34,54 +41,82 @@
         d3.select(tabElement).classed({ active: true });
     }
 
-    function displayConstituenciesList(err, constituencies) {
-        if (err) {
-            return console.error(err);
-        }
-
-        var ul = document.createElement('ul');
-        var constituenciesList = d3.select(ul);
-
-        var liSelection = constituenciesList.selectAll('li')
-            .data(constituencies)
-            .enter()
-            .append('li');
-
-        liSelection.append('a')
-            .attr('href', '#constituency-results')
-            .text(function(d) { return d.constituency_name; })
-            .on('click', function(d) {
-                ConstituencyResults.load({ slug: d.constituency_slug, name: d.constituency_name }, function() {
-                    toggleTab(d3.select('.tabber__nav__link[href="#constituency-results"]'));
-                });
-            });
-
-        d3.select('#constituencies-list').node().appendChild(constituenciesList.node());
-    }
-
-    function load(loadConfig, callback) {
+    function loadConstituencyResults(loadConfig) {
         config = loadConfig;
 
         d3.json(CONFIG.apiBaseUrl + '/constituencies/' + config.slug + '/results.json', function(err, constituencyResults) {
             if (err) {
                 d3.select('#constituency-results')
                     .html('<div class="l-constrain l-constrain--pad-up">Oops, we couldn\'t load results for that constituency - there may not be any yet.</div>');
-                callback();
+
+                toggleTab(d3.select('.tabber__nav__link[href="#constituency-results"]'));
 
                 return console.error(err);
             }
 
             displayPartyResults(constituencyResults);
-            callback();
+            toggleTab(d3.select('.tabber__nav__link[href="#constituency-results"]'));
         });
     }
 
-    function cacheHtmlTemplate(err, htmlTemplate) {
-        if (err) {
-            return console.error(err);
-        }
+    function handleConstituenciesList(callback) {
 
-        cache.htmlTemplate = htmlTemplate;
+        return function(err, constituencies) {
+            if (err) {
+                return console.error(err);
+            }
+
+            cache.constituencies = constituencies;
+
+            var ul = document.createElement('ul');
+            var constituenciesList = d3.select(ul);
+
+            var liSelection = constituenciesList.selectAll('li')
+                .data(constituencies)
+                .enter()
+                .append('li');
+
+            liSelection.append('a')
+                .attr('href', function(d) { return '#' +  d.constituency_slug; })
+                .text(function(d) { return d.constituency_name; })
+                .on('click', function(d) {
+                    loadConstituencyResults({ slug: d.constituency_slug, name: d.constituency_name });
+                });
+
+            d3.select('#constituencies-list').node().appendChild(constituenciesList.node());
+
+            callback();
+        };
+    }
+
+    function templateLoaded(callback) {
+
+        return function(err, htmlTemplate) {
+            if (err) {
+                return console.error(err);
+            }
+
+            // Store template for future use
+            cache.htmlTemplate = htmlTemplate;
+
+            callback();
+        };
+    }
+
+    function checkLocationHash() {
+
+        // Check if a constituency has been specified in the URL
+        if (location.hash) {
+            var locationHash = location.hash.substr(1);
+            if (Array.prototype.indexOf !== 'undefined') {
+                // Is constituency valid?
+                var constituencyFound = _.find(cache.constituencies, 'constituency_slug', locationHash);
+                if (constituencyFound && constituencyFound.constituency_slug === locationHash) {
+                    // Load constituency results
+                    loadConstituencyResults({ slug: constituencyFound.constituency_slug, name: constituencyFound.constituency_name });
+                }
+            }
+        }
     }
 
     function displayPartyResults(constituencyResults) {
@@ -193,8 +228,6 @@
         };
     }
 
-    return {
-        load: load
-    };
+    init();
 
-})(VFP_DATA_CONFIG, d3);
+})(VFP_DATA_CONFIG, d3, _.noConflict(), _);
