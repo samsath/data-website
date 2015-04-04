@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en-GB">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <title>Constituency results - Vote for Policies Data</title>
+
+        <!-- https://github.com/h5bp/html5-boilerplate/issues/378#issuecomment-1211993 -->
+
+        <!--[if IE 8]>
+        <html lang="en-GB" class="no-js lt-ie9"><![endif]-->
+
+        <!--[if gt IE 8]><!-->
+        <html lang="en-GB" class="no-js no-legacy-ie"> <!--<![endif]-->
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- prod:oldie.css -->
+        <!--[if lte IE 8]><link rel="stylesheet" href="/dist/css/oldie.css/oldie_c75fd2c9c02f76d12554d39a695433d4.css"><![endif]-->
+        <!-- endbuild -->
+
+        <!-- prod:frontend.css -->
+        <!--[if gt IE 8]><!--><link rel="stylesheet" href="/dist/css/frontend.css/frontend_ad646afbbc167acc0aad6d05abb0a5ac.css"><!--<![endif]-->
+        <!-- endbuild -->
+
+        <link rel="stylesheet" type="text/css" href="/css/data.css">
+
+        <script src="/dist/js/vendor/modernizr_37130cc264634bda38e3959c6f7de5fa.js"></script>
+    </head>
+    <body>
+
+        <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+            your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="masthead  masthead--light " role="banner"  vfp-show-hide>
+            <div class="l-constrain l-constrain--pad-up l-constrain--relative-desktop">
+                <div class="masthead__logo">
+                    <a href="/" class="brand  brand--white ">
+                        <span class="u-visuallyhidden">Vote for Policies</span>
+                        <i class="icon logo"></i>
+                    </a>
+                </div>
+                <button type="button"
+                    class="btn btn--navigation btn--light-navigation"
+                    id="navigation-toggle"
+                    aria-controls="navigation"
+                    aria-haspopup="true"
+                    aria-label="Mobile navigation"
+                    >
+                    <i class="icon nav-burger--dark "></i>
+                </button>
+                <nav id="navigation" role="navigation" class="navigation navigation--light">
+                    <ul class="list-plain">
+                        <li>
+                        <a href="https://voteforpolicies.org.uk/">Return to main site</a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+
+        <div role="main" class="u-no-padding">
+            <div class="hero">
+                <div class="l-constrain">
+                    <h1 class="hero__impact">
+                        Vote for Policies Data
+                    </h1>
+                    <h2 class="hero__strapline">
+                        Constituency results
+                    </h2>
+                </div>
+            </div>
+
+            <div class="tabber__nav">
+                <div class="l-constrain l-constrain--no-overflow l-constrain--relative u-no-mobile-padding">
+                    <ul role="tablist">
+                        <li role="presentation" class="u-bp-only-small u-js-only">
+                            <span class="tabber__nav__hint" aria-hidden="true">
+                                Select which results to view:
+                            </span>
+                        </li>
+                        <li role="presentation">
+                            <a href="#constituencies-list"
+                               role="tab"
+                               aria-selected="true"
+                               class="tabber__nav__link">
+                                Constituencies
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#constituency-results"
+                               role="tab"
+                               class="tabber__nav__link hidden">
+                                Results
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <section id="constituencies-list" class="active l-constrain tabber__tab u-page-padding" role="tabpanel"></section>
+            <section id="constituency-results" class="l-constrain tabber__tab u-page-padding" role="tabpanel"></section>
+        </div>
+
+        <footer class="footer">
+            <div role="contentinfo">
+                <section class="panel panel--footer u-no-margin">
+                    <div class="l-constrain">
+                        <div class="footer__meta">
+                            <p class="u-no-margin">
+                            <span>&copy; Vote for Policies 2015</span>
+                            Vote for Policies is an independent non-profit organisation registered in the United Kingdom (no. 8198015)
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </footer>
+
+        <script src="//use.typekit.net/drn1lhk.js"></script>
+        <script>
+        try {
+            Typekit.load();
+        } catch (e) {}
+        </script>
+
+        <script src="/dist/js/vendor/nimble_8535a171e905d684b6411dfc5da38fe7.js"></script>
+        <script src="/dist/js/vendor/lodash.compat_eced7a51b689fc469c4cf9600fae6610.js"></script>
+        <!--[if gt IE 8]><!--><script src="/dist/js/vendor/chartist_5d77dd2e5e7402f65f08e3e4e05816ce.js"></script><!--<![endif]-->
+
+        <script src="/dist/js/vendor/d3.3.4.11_bda6b289e4ae055a12d6905eeed9775c.js"></script>
+
+        <script src="/js/config.js"></script>
+        <script src="/js/main.js"></script>
+
+        <script src="/js/constituencies/results.js"></script>
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-15339257-4', 'auto');
+          ga('send', 'pageview');
+        </script>
+
+    </body>
+</html>

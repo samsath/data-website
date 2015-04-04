@@ -35,6 +35,10 @@ th, td {
     font-size: 0.8rem;
 }
 
+tr {
+    cursor: pointer;
+}
+
 tr.selected td {
     background-color: #EDEDED;
 }
