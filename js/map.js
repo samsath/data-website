@@ -88,10 +88,11 @@
     Map.prototype.addClickListeners = function addClickListeners(graphics, boundaries) {
 
         var b, s, t;
+        var toggleFunction = this.getToggleSelectedAreaFn(graphics);
 
         graphics.selectAll('.area')
             .data(topojson.feature(boundaries, boundaries.objects[this.unit]).features)
-            .on('click', this.getToggleSelectedAreaFn(graphics));
+            .on('click', toggleFunction);
 
         this.projection
             .scale(1)
