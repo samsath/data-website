@@ -1,211 +1,221 @@
-; (function(CONFIG, d3) {
+;
+(function (CONFIG, d3, Handlebars) {
 
-    var width = 594, height = 806;
-
-    var projection, svg, path, g;
-    var boundaries, units;
-    var centered;
-
-    var constituencyResults = {};
-
-    // ----
-
-    function init(width, height) {
-
-        // Set up projection
-        projection = d3.geo.albers()
-            .rotate([0, 0]);
-
-        path = d3.geo.path()
-            .projection(projection);
-
-        // Create SVG element for the map
-        svg = d3.select("#map").append("svg")
-            .attr("width", width)
-            .attr("height", height);
-
-        // graphics go here
-        g = svg.append("g");
+    /**
+     * Gets a slugified version of a string
+     *
+     * @param {string} text
+     * @returns {string}
+     */
+    function slugify(text) {
+        return text.toString().toLowerCase()
+            .replace(/\s+/g, '-')           // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+            .replace(/^-+/, '')             // Trim - from start of text
+            .replace(/-+$/, '');            // Trim - from end of text
     }
 
-    // Draw map on the SVG element
-    function draw(boundaries) {
+    /**
+     * Map Class
+     *
+     * Intantiate a new map and data-table instance by passing in a css selector for where to place the map, and a css selector for where to put table results
+     *
+     * @param {string} mapSelector          Css selector
+     * @param {string} tableSelector        Css selector
+     * @constructor
+     */
+    function Map(mapSelector, tableSelector) {
 
-        projection
+        var parentElement = document.querySelector(mapSelector);
+        var e = document.createElement('object');
+
+        e.data = "/img/blank-simplified-map.svg";
+        e.type = "image/svg+xml";
+        e.width = 594;
+        e.height = 806;
+
+        e.addEventListener('load', _.bind(this.onSvgLoaded, this));
+
+        this.element = e;
+        this.tableSelector = tableSelector;
+        this.centered = null;
+        this.unit = 'wpc';
+
+        this.projection = d3.geo.albers().rotate([0, 0]);
+        this.path = d3.geo.path().projection(this.projection);
+
+        parentElement.appendChild(e);
+    }
+
+    /**
+     * When the SVG is finished loading hook up D3 to the element and load the tpo_wpc.json so we can add click listeners
+     * Requests the data from the API and initiates the data-table and maps the results to the SVG
+     *
+     * @param {Object} e     The 'load' event
+     */
+    Map.prototype.onSvgLoaded = function onSvgLoaded(e) {
+
+        var svgDocument = e.target.getSVGDocument().documentElement;
+        //Hook up D3 to the SVG element
+        var svg = d3.select(svgDocument);
+        var graphics = svg.select('g');
+
+        svgDocument.addEventListener('click', _.bind(function (e) {
+            if (e.target.nodeName === 'svg') {
+                //Zoom back out of the map because click was not on a particular constituency path
+                this.getToggleSelectedAreaFn(graphics)();
+            }
+        }, this));
+
+        d3.json(CONFIG.apiBaseUrl + '/constituencies/results/parties.json?filters=leading', _.bind(function (error, constituencies) {
+            this.tabulate(graphics, constituencies);
+            this.mapConstituencyResults(constituencies);
+        }, this));
+
+        d3.json('/json/gb/topo_wpc.json', _.bind(function (error, boundaries) {
+            this.addClickListeners(graphics, boundaries);
+        }, this));
+    };
+
+    /**
+     * From a given TopoJSON json file (https://github.com/mbostock/topojson) that matches the SVG that is saved
+     * Create click event listeners on constituency paths to scale/translate the map
+     *
+     * @param {*} graphics      <g> SVG element
+     * @param {Object} boundaries
+     */
+    Map.prototype.addClickListeners = function addClickListeners(graphics, boundaries) {
+
+        var b, s, t;
+        var toggleFunction = this.getToggleSelectedAreaFn(graphics);
+
+        graphics.selectAll('.area')
+            .data(topojson.feature(boundaries, boundaries.objects[this.unit]).features)
+            .on('click', toggleFunction);
+
+        this.projection
             .scale(1)
-            .translate([0,0]);
+            .translate([0, 0]);
 
         // Compute correct bounds and scaling from the TopoJSON
-        var b = path.bounds(topojson.feature(boundaries, boundaries.objects[units]));
-        var s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
-        var t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+        b = this.path.bounds(topojson.feature(boundaries, boundaries.objects[this.unit]));
+        s = .95 / Math.max((b[1][0] - b[0][0]) / this.element.width, (b[1][1] - b[0][1]) / this.element.height);
+        t = [(this.element.width - s * (b[1][0] + b[0][0])) / 2, (this.element.height - s * (b[1][1] + b[0][1])) / 2];
 
-        projection
+        this.projection
             .scale(s)
             .translate(t);
 
-        // Add an area for each feature in the TopoJSON
-        g.selectAll(".area")
-            .data(topojson.feature(boundaries, boundaries.objects[units]).features)
-            .enter().append("path")
-            .attr("class", function(d) {
+    };
 
-                var area_party_class = '';
-                if (constituencyResults[d.properties.PCON13NM]) {
-                    area_party_class = ' party-' + constituencyResults[d.properties.PCON13NM].toLowerCase().replace(/ /g, '-');
+    /**
+     * Get a function that can be used to a zoom/scale to a particular path
+     *
+     * @param {*} graphics      <g> SVG element
+     */
+    Map.prototype.getToggleSelectedAreaFn = function toggleSelectedArea(graphics) {
+
+        /**
+         * Scale and translate the map to a particular constituency, or zoom back out if already selected or nothing is passed in
+         *
+         * @param {Object} [constituencyPath]
+         * @private
+         */
+        function toggleSelectedArea (constituencyPath) {
+            // Handle map zooming
+            var x, y, k;
+            var changedArea = false;
+            var slugified;
+
+            if (constituencyPath && this.centered !== constituencyPath) {
+                var centroid = this.path.centroid(constituencyPath);
+                x = centroid[0];
+                y = centroid[1];
+                k = 8;
+                this.centered = constituencyPath;
+                changedArea = true;
+
+            } else {
+                x = this.element.width / 2;
+                y = this.element.height / 2;
+                k = 1;
+                this.centered = null;
+            }
+
+            // Highlight area
+            graphics.selectAll("path")
+                .classed({
+                    selected: (this.centered && _.bind(function (d) {
+                        return d === this.centered;
+                    }, this))
+                });
+
+            // Remove currently highlighted table row
+            d3.select('#data_table .selected')
+                .classed({selected: false});
+
+            if (this.centered && changedArea) {
+                // Highlight corresponding table row
+
+                slugified = slugify(constituencyPath.properties.PCON13NM);
+                //Slightly irritating exception due to accent.
+                if (slugified === 'ynys-mon') {
+                    slugified = 'ynys-mn';
                 }
-                var cssClass = 'area' + area_party_class;
 
-                return cssClass;
-            })
-            .attr("id", function(d){ return d.id; })
-            .attr("d", path)
-            .on("click", function(d){ return toggleSelectedArea(d); });
-
-        // Add a boundary between areas
-        g.append("path")
-            .datum(topojson.mesh(boundaries, boundaries.objects[units], function(a, b){ return a !== b }))
-            .attr('d', path)
-            .attr('class', 'boundary');
-    }
-
-    // Redraw the map
-    // Removes map completely and starts from scratch
-    function redraw() {
-        d3.select("svg").remove();
-
-        init(width, height);
-        draw(boundaries);
-    }
-
-    // ----
-
-    // Select a map area
-    function toggleSelectedArea(d) {
-
-        // Handle map zooming
-        var changedArea = false;
-        var x, y, k;
-
-        if (d && centered !== d) {
-            var centroid = path.centroid(d);
-            x = centroid[0];
-            y = centroid[1];
-            k = 8;
-            centered = d;
-            changedArea = true;
-        } else {
-            x = width / 2;
-            y = height / 2;
-            k = 1;
-            centered = null;
-        }
-
-        // Highlight area
-        g.selectAll("path")
-            .classed({ selected: (centered && function(d) { return d === centered; }) });
-
-        // Remove currently highlighted table row
-        d3.select('#data_table .selected')
-            .classed({ selected: false });
-
-        if (centered && changedArea) {
-            // Highlight corresponding table row
-            var rowClass = '.constituency_name-' + normalizeName(d.properties.PCON13NM);
-            d3.select(rowClass)
-                .classed({ selected: true })
-                .node()
-                .scrollIntoView();
-        }
-
-        // Zoom in or out of area
-        g.transition()
-            .duration(750)
-            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-            .style("stroke-width", 1 / k + "px");
-    }
-
-    function normalizeName(name) {
-        return name.toLowerCase().replace(/[^a-z]/g, '');
-    }
-
-    // ----
-
-    function loadData() {
-
-        d3.json(CONFIG.apiBaseUrl + '/constituencies/results/parties.json?filters=leading', function(error, results) {
-            if (error) {
-                return console.error(error);
+                d3.select('.' + slugified)
+                    .classed({selected: true})
+                    .node()
+                    .scrollIntoView();
             }
 
-            // Display results in table
-            tabulate(results, [
-                { field: 'constituency_name', heading: 'Constituency' },
-                { field: 'party_name', heading: 'Leading Party' }
-            ]);
+            // Zoom in or out of area
+            graphics.transition()
+                .duration(750)
+                .attr("transform", "translate(" + this.element.width / 2 + "," + this.element.height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+                .style("stroke-width", 1 / k + "px");
+        }
 
-            // Create constituency results object for highlighting map areas
-            results.forEach(function(constituency) {
-                constituencyResults[constituency.constituency_name] = constituency.party_name;
-            });
+        return _.bind(toggleSelectedArea, this);
 
-            loadMapData('/json/gb/topo_wpc.json', 'wpc');
+    };
+
+    /**
+     * Using handlebars create DOM for the data-table from a given set of constituencies
+     * Add event listener on to the table that zooms to a particular constituency
+     *
+     * @param {*} graphics      <g> SVG element
+     * @param {Object[]} constituencies   An array of constituency data from the API
+     */
+    Map.prototype.tabulate = function tabulate(graphics, constituencies) {
+
+        var table = document.querySelector(this.tableSelector);
+
+        table.innerHTML = Handlebars.compile(document.querySelector('#constituency-list').innerHTML)({
+            constituencies: constituencies
         });
-    }
 
-    // Loads data and redraws the map
-    function loadMapData(filename, u) {
-        units = u;
+        table.addEventListener('click', _.bind(function (e) {
+            var mapElement = graphics.select('.' + e.target.parentNode.classList.item(0));
+            this.getToggleSelectedAreaFn(graphics)(mapElement.data()[0]);
+        }, this));
+    };
 
-        d3.json(filename, function(error, b) {
-            if (error) {
-                return console.error(error);
-            }
-            boundaries = b;
-            redraw();
+    /**
+     * Add classes on to the constituency paths in the SVG from a given set of constituency results
+     *
+     * @param {Object[]} constituencies   An array of constituency data from the API
+     */
+    Map.prototype.mapConstituencyResults = function mapConstituencyResults(constituencies) {
+        var svgDoc = this.element.contentDocument || this.element.getSVGDocument();
+        _.forEach(constituencies, function (constituency) {
+            var constituencyNode = svgDoc.querySelector('.' + slugify(constituency.constituency_name));
+            constituencyNode.classList.add('party-' + constituency.party_name.toLowerCase().replace(/ /g, '-'));
         });
-    }
+    };
 
-    function tabulate(data, columns) {
-        var table = d3.select("#data_table").append("table");
-            thead = table.append("thead"),
-            tbody = table.append("tbody");
+    Handlebars.registerHelper('slugify', slugify);
+    new Map('#map', '#constituency-rows');
 
-        // append the header row
-        thead.append("tr")
-            .selectAll("th")
-            .data(columns)
-            .enter()
-            .append("th")
-                .text(function(column) { return column.heading; });
-
-        // create a row for each object in the data
-        var rows = tbody.selectAll("tr")
-            .data(data)
-            .enter()
-            .append("tr")
-                .attr('class', function(row) {
-                    return columns.map(function(column) {
-                        return column.field + '-' + normalizeName(row[column.field]);
-                    }).join(' ');
-                });
-
-        // create a cell in each row for each column
-        var cells = rows.selectAll("td")
-            .data(function(row) {
-                return columns.map(function(column) {
-                    return { column: column.field, value: row[column.field] };
-                });
-            })
-            .enter()
-            .append("td")
-                .html(function(d) { return d.value; });
-
-        return table;
-    }
-
-    // ----
-
-    loadData();
-
-})(VFP_DATA_CONFIG, d3);
+})(VFP_DATA_CONFIG, d3, Handlebars);
