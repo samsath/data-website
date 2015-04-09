@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>Leading party for each constituency - Vote for Policies Data</title>
+
+    <!-- https://github.com/h5bp/html5-boilerplate/issues/378#issuecomment-1211993 -->
+
+    <!--[if IE 8]>
+    <html lang="en-GB" class="no-js lt-ie9"><![endif]-->
+
+    <!--[if gt IE 8]><!-->
+    <html lang="en-GB" class="no-js no-legacy-ie"> <!--<![endif]-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- prod:oldie.css -->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/dist/css/oldie.css/oldie_c75fd2c9c02f76d12554d39a695433d4.css"><![endif]-->
+    <!-- endbuild -->
+
+    <!-- prod:frontend.css -->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="/dist/css/frontend.css/frontend_ad646afbbc167acc0aad6d05abb0a5ac.css">
+    <!--<![endif]-->
+    <!-- endbuild -->
+
+    <link rel="stylesheet" type="text/css" href="/css/data.css">
+    <link rel="stylesheet" type="text/css" href="/css/map.css">
+
+    <script src="/dist/js/vendor/modernizr_37130cc264634bda38e3959c6f7de5fa.js"></script>
+</head>
+<body>
+
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="masthead  masthead--light " role="banner" vfp-show-hide>
+    <div class="l-constrain l-constrain--pad-up l-constrain--relative-desktop">
+        <div class="masthead__logo">
+            <a href="/" class="brand  brand--white ">
+                <span class="u-visuallyhidden">Vote for Policies</span>
+                <i class="icon logo"></i>
+            </a>
+        </div>
+        <button type="button"
+                class="btn btn--navigation btn--light-navigation"
+                id="navigation-toggle"
+                aria-controls="navigation"
+                aria-haspopup="true"
+                aria-label="Mobile navigation"
+                >
+            <i class="icon nav-burger--dark "></i>
+        </button>
+        <nav id="navigation" role="navigation" class="navigation navigation--light">
+            <ul class="list-plain">
+                <li>
+                    <a href="https://voteforpolicies.org.uk/">Return to main site</a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</div>
+
+<div role="main" class="u-page-padding">
+    <div class="hero">
+        <div class="l-constrain">
+            <h1 class="hero__impact">
+                Vote for Policies Data
+            </h1>
+
+            <h2 class="hero__strapline">
+                Country Results
+            </h2>
+
+            <div class="tabber__nav">
+                <div class="l-constrain l-constrain--no-overflow l-constrain--relative u-no-mobile-padding">
+                    <ul role="tablist" id="country-tab-list">
+                    </ul>
+                </div>
+            </div>
+
+            <section id="country-results" class="u-page-padding" aria-hidden="false">
+            </section>
+
+
+        </div>
+    </div>
+    <div class="l-constrain">
+        <div class="l-constrain__inner">
+            <div class="content__wrap">
+                <p>Data updated every hour</p>
+                <a href="https://github.com/martinjc/UK-GeoJSON">GeoJSON and TopoJSON UK Boundary Data</a> by Martin
+                Chorley is licensed under a Creative Commons Attribution 4.0 International License
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div role="contentinfo">
+        <section class="panel panel--footer u-no-margin">
+            <div class="l-constrain">
+                <div class="footer__meta">
+                    <p class="u-no-margin">
+                        <span>&copy; Vote for Policies 2015</span>
+                        Vote for Policies is an independent non-profit organisation registered in the United Kingdom
+                        (no. 8198015)
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+</footer>
+
+<script src="//use.typekit.net/drn1lhk.js"></script>
+
+<script>
+    try {
+        Typekit.load();
+    } catch (e) {
+    }
+</script>
+
+
+
+<script id="country-tab-list-template" type="text/x-handlebars-template">
+    {{#each countries}}
+    <li role="presentation">
+        <a href="#countries/{{ slug }}" role="tab" class="tabber__nav__link" {{#if selected}} aria-selected="true"{{/if}}>
+            {{ name }} <span class="u-bp-only-small-and-large">results</span>
+        </a>
+    </li>
+    {{/each}}
+</script>
+
+
+<script id="country-results-template" type="text/x-handlebars-template">
+    <div class="l-constrain l-constrain--pad-up" tabindex="0">
+        There are the overall results for {{ name }}
+    </div>
+
+    <div class="u-divide-top--thick" aria-role="region" id="issue-results">
+
+    </div>
+
+</script>
+
+
+<script id="issue-results-template" type="text/x-handlebars-template">
+    <div class="l-constrain">
+        <h2 class="h3 h--sans">
+            Most popular parties per issue...
+        </h2>
+        <div class="l-grid l-grid--1to2-col">
+            {{#each issues}}
+            <div class="l-grid-unit">
+                <div class="result-issue-total">
+                    <div class="l-flex">
+
+                        <div class="result-issue-total__rank">
+                            <strong class="result-issue-total__position">
+                                {{inc @index}}
+                            </strong>
+                            <span class="result-issue-total__count">
+                                <strong>{{thousands total}}</strong>
+                                <span>votes</span>
+                            </span>
+                        </div>
+
+                        <div class="result-issue-total__leader">
+                            <dl class="hgroup">
+
+                                <dd class="h-group__main">
+                                    <span class="result-issue-total__name">{{ issue_name }}</span>
+                                </dd>
+
+                                <dt class="h-group__lead">
+
+                                    <span>
+                                        {{results.0.party_name}}
+                                    </span>
+
+                                    <div class="result-issue-total__lead-percentage">
+                                        <div class="gauge {{ results.0.party_slug }}" data-progress="{{round results.0.percent}}">
+
+                                            <div class="gauge__circle">
+
+                                                <div class="gauge__mask gauge__mask--half">
+                                                    <div class="gauge__fill"></div>
+                                                </div>
+
+                                                <div class="gauge__mask gauge__mask--full">
+                                                    <div class="gauge__fill"></div>
+                                                </div>
+
+                                            </div>
+                                            <div class="gauge__inset">
+                                                <div class="gauge__data">{{round results.0.percent}}</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </dt>
+
+                            </dl>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+
+
+
+<script src="/dist/js/vendor/d3.3.4.11_bda6b289e4ae055a12d6905eeed9775c.js"></script>
+<script src="/dist/js/vendor/topojson.1.1.0_cc9cd1896cf2fc62a7e1f4a28bc8c305.js"></script>
+<script src="/dist/js/vendor/lodash.compat_eced7a51b689fc469c4cf9600fae6610.js"></script>
+<script src="/dist/js/vendor/handlebars-v3.0.0.js"></script>
+<script src="/dist/js/vendor/jquery-1.11.2.min.js"></script>
+<script src="/bower_components/grapnel/dist/grapnel.min.js"></script>
+
+<script src="/js/config.js"></script>
+<script src="/js/main.js"></script>
+
+<script src="/js/results/issue-results.js"></script>
+<script src="/js/countries/country-results.js"></script>
+<script src="/js/countries/country-tabs.js"></script>
+<script src="/js/countries/countries.js"></script>
+
+<!--<script>-->
+    <!--(function (i, s, o, g, r, a, m) {-->
+        <!--i['GoogleAnalyticsObject'] = r;-->
+        <!--i[r] = i[r] || function () {-->
+            <!--(i[r].q = i[r].q || []).push(arguments)-->
+        <!--}, i[r].l = 1 * new Date();-->
+        <!--a = s.createElement(o),-->
+                <!--m = s.getElementsByTagName(o)[0];-->
+        <!--a.async = 1;-->
+        <!--a.src = g;-->
+        <!--m.parentNode.insertBefore(a, m)-->
+    <!--})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');-->
+
+    <!--ga('create', 'UA-15339257-4', 'auto');-->
+    <!--ga('send', 'pageview');-->
+<!--</script>-->
+
+</body>
+</html>
