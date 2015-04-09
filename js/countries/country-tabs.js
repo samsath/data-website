@@ -1,6 +1,8 @@
 ;
 var CountryTabs = (function(CONFIG, $, Handlebars) {
 
+    var cached = {};
+
     /**
      * The tabs
      *
@@ -42,8 +44,16 @@ var CountryTabs = (function(CONFIG, $, Handlebars) {
      * @param country
      */
     CountryTabs.prototype.renderTab = function renderTab(country) {
-        $.getJSON(CONFIG.apiBaseUrl + '/countries/' + country.slug + '/results.json').then(function (results) {
+
+        var countryUrl = CONFIG.apiBaseUrl + '/countries/' + country.slug + '/results.json';
+
+        if (cached[countryUrl]) {
+            return new CountryResults(country, cached[countryUrl]);
+        }
+
+        $.getJSON(countryUrl).then(function (results) {
             new CountryResults(country, results);
+            cached[countryUrl] = results;
         });
     };
 
