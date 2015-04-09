@@ -44,6 +44,9 @@ var IssueResults = (function(CONFIG, $, Handlebars) {
     });
 
     Handlebars.registerHelper('thousands', function (value) {
+        if (value < 10000) {
+            return value;
+        }
         var rounded = Math.round((value / 1000) * 10) / 10;
         return rounded + 'k';
     });
