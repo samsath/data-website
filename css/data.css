@@ -19,3 +19,103 @@
     text-align: left;
 }
 
+/**
+ * Empty: Style a containers text when theres nothing in it
+ */
+
+.empty {
+  color: #ccc;
+  padding: 2em 0 5em 0;
+
+  text-align: center;
+}
+
+/**
+ * Constituency search
+ */
+
+.constituency-search {
+  max-width: 700px;
+  margin: 0 auto 2em auto;
+}
+
+
+/**
+ * Search List
+ */
+
+.search-list {
+  background: #eee;
+  padding: .5em;
+  border-radius: 10px;
+  position: relative;
+}
+
+.search-list input {
+  width: 100%;
+  margin: 0;
+}
+
+.search-list__results {
+  padding: 0;
+  padding-top: 0.25em;
+  left: 0;
+  right: 0;
+  top: 100%;
+  margin-top: -5px;
+  list-style: none;
+  position: absolute;
+  background:#eee;
+  border:1px solid #eee;
+  z-index: 100;
+  border-radius: 0 0 10px 10px;
+}
+
+.search-list__results a {
+  display: block;
+  padding: 0.5em;
+}
+
+.search-list__results li {
+  margin: 0;
+  overflow: hidden;
+}
+
+.search-list__results li:nth-child(even) a {
+  background-color: #E7E7E7;
+}
+
+.search-list__results li a:focus,
+.search-list__results li a:hover {
+  background:#fff;
+  text-decoration:none;
+}
+
+/* Media Queries for Search List component */
+@media only screen
+  and (min-device-width: 600px) {
+
+    .search-list fieldset {
+      padding-left: 50px;
+      background: url(../img/icon-search.png) no-repeat 10px center;
+    }
+
+    .svg .search-list fieldset {
+      background-image: url(../img/icon-search.svg);
+    }
+
+    .search-list__results a {
+      padding-left: 50px;
+    }
+}
+
+
+/**
+ * View
+ * A partial thats ajaxed in and needs a transition
+ */
+.view {
+  animation: fadeIn 2s ease;
+  -webkit-animation: fadeIn 2s ease;
+  -moz-animation: fadeIn 2s ease;
+}

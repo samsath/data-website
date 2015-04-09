@@ -1,11 +1,9 @@
-; var ConstituencyResults = (function(CONFIG, d3, _, nimble) {
+; var ConstituencyResults = (function(CONFIG, d3, _, nimble, Autocomplete) {
 
     var config;
     var cache = {};
 
     function init() {
-        setEventHandlers();
-
         nimble.parallel([
             // Load list of constituencies
             function(callback) {
@@ -18,44 +16,16 @@
         ], checkLocationHash);
     }
 
-    function setEventHandlers() {
+    function loadConstituencyResults(constituency) {
 
-        d3.selectAll('.tabber__nav a').on('click', function() {
-            d3.event.preventDefault();
-            toggleTab(d3.select(d3.event.target));
-        });
-    }
-
-    function toggleTab(activeAnchor) {
-
-        // Clear selected tabber nav item
-        d3.select('a.tabber__nav__link[aria-selected="true"]').attr('aria-selected', null);
-
-        // Highlight active tabber nav item
-        activeAnchor.attr('aria-selected', 'true');
-
-        var tabElement = activeAnchor.attr('href');
-
-        // Toggle active tab element
-        d3.select('.tabber__tab.active').classed({ active: false }).node().scrollIntoView();
-        d3.select(tabElement).classed({ active: true });
-    }
-
-    function loadConstituencyResults(loadConfig) {
-        config = loadConfig;
-
-        d3.json(CONFIG.apiBaseUrl + '/constituencies/' + config.slug + '/results.json', function(err, constituencyResults) {
+        d3.json(CONFIG.apiBaseUrl + '/constituencies/' + constituency.slug + '/results.json', function(err, constituencyResults) {
             if (err) {
                 d3.select('#constituency-results')
                     .html('<div class="l-constrain l-constrain--pad-up">Oops, we couldn\'t load results for that constituency - there may not be any yet.</div>');
+                  }
 
-                toggleTab(d3.select('.tabber__nav__link[href="#constituency-results"]'));
+            displayPartyResults(constituencyResults, constituency);
 
-                return console.error(err);
-            }
-
-            displayPartyResults(constituencyResults);
-            toggleTab(d3.select('.tabber__nav__link[href="#constituency-results"]'));
         });
     }
 
@@ -68,22 +38,33 @@
 
             cache.constituencies = constituencies;
 
-            var ul = document.createElement('ul');
-            var constituenciesList = d3.select(ul);
+            var container = document.querySelector('#constituencies-list');
 
-            var liSelection = constituenciesList.selectAll('li')
-                .data(constituencies)
-                .enter()
-                .append('li');
+            container.innerHTML = Handlebars.compile(document.querySelector('#constituency-list-template').innerHTML)({
+                constituencies: constituencies
+            });
 
-            liSelection.append('a')
-                .attr('href', function(d) { return '#' +  d.constituency_slug; })
-                .text(function(d) { return d.constituency_name; })
-                .on('click', function(d) {
-                    loadConstituencyResults({ slug: d.constituency_slug, name: d.constituency_name });
+            var autocomplete = new Autocomplete('constituency-search', { valueNames: [ 'constituency'] });
+
+            autocomplete.list.addEventListener('click', function(ev){
+
+                var element = ev.target;
+
+                if(element.tagName !== 'A') {
+                  return;
+                }
+
+                loadConstituencyResults({
+                  slug: element.getAttribute('data-constituency-slug'),
+                  name: element.getAttribute('data-constituency-name')
                 });
 
-            d3.select('#constituencies-list').node().appendChild(constituenciesList.node());
+                // Set the name in search when clicked
+                document.querySelector('.search').value = element.getAttribute('data-constituency-name');
+
+                autocomplete.hideCompletions();
+
+            });
 
             callback();
         };
@@ -119,19 +100,16 @@
         }
     }
 
-    function displayPartyResults(constituencyResults) {
+    function displayPartyResults(constituencyResults, constituency) {
 
         var data = setupData(constituencyResults.parties);
         var constituencyResultsTab = d3.select('#constituency-results');
-
-        // Show 'Results' tabber nav item
-        d3.select('a.tabber__nav__link.hidden').classed({ hidden: false });
 
         // Set constituency results HTML template
         constituencyResultsTab.html(cache.htmlTemplate);
 
         // Set constituency name
-        d3.select('.survey-results__section-title .constituency-name').text(config.name);
+        d3.select('.survey-results__section-title .constituency-name').text(constituency.name);
 
         // Set surveys count
         d3.select('.survey-results__total .completed-count').text(constituencyResults.surveys_count);
@@ -230,4 +208,4 @@
 
     init();
 
-})(VFP_DATA_CONFIG, d3, _.noConflict(), _);
+})(VFP_DATA_CONFIG, d3, _.noConflict(), _, Autocomplete);
