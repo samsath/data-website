@@ -39,6 +39,10 @@ var IssueResults = (function(CONFIG, $, Handlebars) {
         return Math.round(value * 10) / 10;
     });
 
+    Handlebars.registerHelper('roundToInt', function (value) {
+        return Math.round(value);
+    });
+
     Handlebars.registerHelper('thousands', function (value) {
         var rounded = Math.round((value / 1000) * 10) / 10;
         return rounded + 'k';
