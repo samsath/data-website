@@ -188,6 +188,8 @@
             }]
         ];
 
+        debugger;
+
         new Chartist.Pie(chartContainer, chartData, options, responsiveOptions);
     }
 

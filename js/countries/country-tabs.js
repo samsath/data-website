@@ -12,7 +12,6 @@ var CountryTabs = (function(CONFIG, $, Handlebars) {
      * @constructor
      */
     function CountryTabs(countries, templateSelector, templateTargetSelector) {
-
         this.countries = _.reject(countries, 'slug', 'northern-ireland');
 
         this.templateSelector = templateSelector;
@@ -66,7 +65,6 @@ var CountryTabs = (function(CONFIG, $, Handlebars) {
             countries: this.countries
         });
     };
-
 
     return CountryTabs;
 
