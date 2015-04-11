@@ -1,11 +1,6 @@
 ;
 var PieChart = (function (CONFIG, $, Handlebars) {
-
-    var templatePromise = $.ajax({
-        url: '/partials/results/pie-chart.html',
-        dataType: 'text'
-    });
-
+    
     var responsiveOptions = [
         ['screen and (min-width: 100px)', {
             chartPadding: 0,

@@ -1,8 +1,13 @@
 ;
 var IssueResults = (function (CONFIG, $, Handlebars) {
 
-    var templatePromise = $.ajax({
+    var issueResultsTemplatePromise = $.ajax({
         url: '/partials/results/issue-results.html',
+        dataType: 'text'
+    });
+
+    var issueResultTemplatePromise = $.ajax({
+        url: '/partials/results/issue-result.html',
         dataType: 'text'
     });
 
@@ -35,31 +40,100 @@ var IssueResults = (function (CONFIG, $, Handlebars) {
                 return -issue.total;
             })
             .value()
-        ;
+            ;
     }
 
     /**
      * IssueResults is for displaying a collection of issue results
      *
      * @param issues
+     * @param target
      * @constructor
      */
-    function IssueResults(issues) {
-        this.issues = formatIssuesForView(issues);
+    function IssueResults(issues, target) {
+        this.target = target || '#issue-results';
+
+        this.issues = formatIssuesForView(issues).map(function (issue, i) {
+            issue.rank = i;
+            return new IssueResult(issue);
+        });
+
         this.render();
     }
+
+    /**
+     * IssueResult is for one particular issue
+     *
+     * @param issue
+     * @constructor
+     */
+    function IssueResult(issue) {
+        this.selected = issue.results[0];
+        _.assign(this, issue);
+    }
+
+    /**
+     * Render a whole component
+     */
+    IssueResult.prototype.render = function render() {
+
+        var target = document.querySelector('.issue-' + this.issue_slug);
+
+        issueResultTemplatePromise.then(function (template) {
+
+            var compiled = Handlebars.compile(template);
+
+            target.innerHTML = compiled(this);
+
+            $(target).on('mouseover', 'li', this, function (e) {
+                e.data.selected = e.data.results[$(this).index()];
+                e.data.renderSelected();
+            });
+
+            $(target).on('mouseout', 'li', this, function (e) {
+                e.data.selected = e.data.results[0];
+                e.data.renderSelected();
+            });
+
+        }.bind(this));
+
+    };
+
+    /**
+     * Render just the leader selections
+     * Bit minging but hey ho
+     */
+    IssueResult.prototype.renderSelected = function renderSelected() {
+
+        var target = document.querySelector('.issue-' + this.issue_slug);
+
+        issueResultTemplatePromise.then(function (template) {
+
+            var compiled = Handlebars.compile(template);
+
+            var className = 'result-issue-total__leader';
+            target.getElementsByClassName(className)[0].innerHTML = $(compiled(this)).find('.' + className).html();
+
+
+        }.bind(this));
+
+    };
 
     /**
      * Render this IssueResults
      */
     IssueResults.prototype.render = function render() {
+        var target = document.querySelector(this.target);
+        issueResultsTemplatePromise.then(function (template) {
 
-        var target = document.querySelector('#issue-results');
-
-        templatePromise.then(function (template) {
             target.innerHTML = Handlebars.compile(template)({
                 issues: this.issues
             });
+
+            this.issues.forEach(function (issue) {
+                issue.render();
+            });
+
         }.bind(this));
     };
 

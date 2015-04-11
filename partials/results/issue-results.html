@@ -2,58 +2,13 @@
     <h2 class="h3 h--sans">
         Most popular parties per issue...
     </h2>
+
     <div class="l-grid l-grid--1to2-col">
         {{#each issues}}
-        <div class="l-grid-unit">
-            <div class="result-issue-total">
-                <div class="l-flex">
-                    <div class="result-issue-total__rank">
-                        <strong class="result-issue-total__position">
-                            {{inc @index}}
-                        </strong>
-                        <span class="result-issue-total__count">
-                            <strong>{{thousands total}}</strong>
-                            <span>votes</span>
-                        </span>
-                    </div>
-                    <div class="result-issue-total__leader">
-                        <dl class="hgroup">
-                            <dd class="h-group__main">
-                                <span class="result-issue-total__name">{{ issue_name }}</span>
-                            </dd>
-                            <dt class="h-group__lead">
-                                <span>
-                                    {{results.0.party_name}}
-                                </span>
-                            <div class="result-issue-total__lead-percentage">
-                                <div class="gauge {{ results.0.party_slug }}" data-progress="{{roundToInt results.0.percent}}">
-                                    <div class="gauge__circle">
-                                        <div class="gauge__mask gauge__mask--half">
-                                            <div class="gauge__fill"></div>
-                                        </div>
-                                        <div class="gauge__mask gauge__mask--full">
-                                            <div class="gauge__fill"></div>
-                                        </div>
-                                    </div>
-                                    <div class="gauge__inset">
-                                        <div class="gauge__data">{{round results.0.percent}}%</div>
-                                    </div>
-                                </div>
-                            </div>
-                            </dt>
-                        </dl>
-                    </div>
-                </div>
-                <ul class="list-plain result-issue-total__parties">
-                    {{#each results}}
-                    <li class="result-issue-total__parties-percentage result-issue-total__parties-percentage--{{ party_slug }}" style="width: {{percent}}%">
-                        <strong class="result-issue-total__parties-percentage__party">{{ party_name }}</strong>
-                        <span class="result-issue-total__parties-percentage__count">{{round percent }}%</span>
-                    </li>
-                    {{/each}}
-                </ul>
-            </div>
+        <div class="issue-{{issue_slug}} l-grid-unit">
+
         </div>
         {{/each}}
     </div>
 </div>
+
