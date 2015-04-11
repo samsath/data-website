@@ -86,17 +86,24 @@ var IssueResults = (function (CONFIG, $, Handlebars) {
             target.innerHTML = compiled(this);
 
             $(target).on('mouseover', 'li', this, function (e) {
-                e.data.selected = e.data.results[$(this).index()];
-                e.data.renderSelected();
+                e.data.selectResult(e.data.results[$(this).index()]);
             });
 
             $(target).on('mouseout', 'li', this, function (e) {
-                e.data.selected = e.data.results[0];
-                e.data.renderSelected();
+                e.data.selectResult(e.data.results[0]);
             });
 
         }.bind(this));
 
+    };
+
+    /**
+     * Toggle the selected result to the passed in result
+     * @param result
+     */
+    IssueResult.prototype.selectResult = function selectResult(result) {
+        this.selected = result;
+        this.renderSelected();
     };
 
     /**
