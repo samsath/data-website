@@ -67,10 +67,6 @@ var CountryTabs = (function(CONFIG, $, Handlebars) {
             countries: this.countries
         });
 
-        $(template).on('click', '.tabber__nav__link', function () {
-            $(this).parents('.l-constrain').addClass('tabber__nav--expanded');
-        });
-
 
     };
 
