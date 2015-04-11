@@ -66,7 +66,7 @@
                 return console.error(err);
             }
 
-            cache.constituencies = constituencies;
+            cache.constituencies = constituencies;d
 
             var ul = document.createElement('ul');
             var constituenciesList = d3.select(ul);
@@ -187,8 +187,6 @@
                 }
             }]
         ];
-
-        debugger;
 
         new Chartist.Pie(chartContainer, chartData, options, responsiveOptions);
     }
