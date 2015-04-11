@@ -1,0 +1,49 @@
+<div class="result-issue-total">
+    <div class="l-flex">
+        <div class="result-issue-total__rank">
+            <strong class="result-issue-total__position">
+                {{inc rank}}
+            </strong>
+            <span class="result-issue-total__count">
+                <strong>{{thousands total}}</strong>
+                <span>votes</span>
+            </span>
+        </div>
+        <div class="result-issue-total__leader">
+            <dl class="hgroup">
+                <dd class="h-group__main">
+                    <span class="result-issue-total__name">{{ issue_name }}</span>
+                </dd>
+                <dt class="h-group__lead">
+                    <span>
+                        {{selected.party_name}}
+                    </span>
+                <div class="result-issue-total__lead-percentage">
+                    <div class="gauge {{ selected.party_slug }}" data-progress="{{roundToInt selected.percent}}">
+                        <div class="gauge__circle">
+                            <div class="gauge__mask gauge__mask--half">
+                                <div class="gauge__fill"></div>
+                            </div>
+                            <div class="gauge__mask gauge__mask--full">
+                                <div class="gauge__fill"></div>
+                            </div>
+                        </div>
+                        <div class="gauge__inset">
+                            <div class="gauge__data">{{round selected.percent}}%</div>
+                        </div>
+                    </div>
+                </div>
+                </dt>
+            </dl>
+        </div>
+    </div>
+    <ul class="list-plain result-issue-total__parties">
+        {{#each results}}
+        <li class="result-issue-total__parties-percentage result-issue-total__parties-percentage--{{ party_slug }}"
+            style="width: {{percent}}%">
+            <strong class="result-issue-total__parties-percentage__party">{{ party_name }}</strong>
+            <span class="result-issue-total__parties-percentage__count">{{round percent }}%</span>
+        </li>
+        {{/each}}
+    </ul>
+</div>

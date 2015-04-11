@@ -36,7 +36,7 @@
                 return console.error(err);
             }
 
-            cache.constituencies = constituencies;
+            cache.constituencies = constituencies;d
 
             var container = document.querySelector('#constituencies-list');
 
