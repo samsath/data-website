@@ -60,10 +60,18 @@ var CountryTabs = (function(CONFIG, $, Handlebars) {
      * Render the tabs
      */
     CountryTabs.prototype.render = function render() {
+
         var template = document.querySelector(this.templateTargetSelector);
+
         template.innerHTML = Handlebars.compile(document.querySelector(this.templateSelector).innerHTML).call(this, {
             countries: this.countries
         });
+
+        $(template).on('click', '.tabber__nav__link', function () {
+            $(this).parents('.l-constrain').addClass('tabber__nav--expanded');
+        });
+
+
     };
 
     return CountryTabs;
