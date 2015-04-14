@@ -2,10 +2,6 @@
   "name": "vfp-data-website",
   "version": "1.0.0",
   "description": "VFP Data Website",
-  "main": "index.js",
-  "scripts": {
-    "test": "./node_modules/karma/bin/karma start"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/voteforpolicies/data-website"
@@ -21,11 +17,20 @@
     "url": "https://github.com/voteforpolicies/data-website/issues"
   },
   "homepage": "https://github.com/voteforpolicies/data-website",
+  "dependencies": {
+    "docpad": "~6.78.1",
+    "docpad-plugin-eco": "^2.1.0"
+  },
   "devDependencies": {
     "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.7",
     "karma-mocha": "^0.1.10",
     "karma-sinon-chai": "^0.3.0",
     "mocha": "^2.2.3"
+  },
+  "main": "node_modules/.bin/docpad-server",
+  "scripts": {
+    "start": "node_modules/.bin/docpad-server",
+    "test": "./node_modules/karma/bin/karma start"
   }
 }

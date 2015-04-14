@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta charset="utf-8">
-        <title>Vote for Policies Data</title>
+        <title><% if @document.title: %><%= @document.title %> - <% end %>Vote for Policies Data</title>
 
         <!-- https://github.com/h5bp/html5-boilerplate/issues/378#issuecomment-1211993 -->
 
@@ -24,6 +24,7 @@
         <!-- endbuild -->
 
         <link rel="stylesheet" type="text/css" href="/css/data.css">
+        <link rel="stylesheet" type="text/css" href="/css/map.css">
 
         <script src="/dist/js/vendor/modernizr_37130cc264634bda38e3959c6f7de5fa.js"></script>
     </head>
@@ -67,64 +68,7 @@
 
         <div role="main" class="u-page-padding">
 
-            <div class="hero">
-                <div class="l-constrain">
-                    <h1 class="hero__impact">
-                        Vote for Policies Data
-                    </h1>
-                    <h2 class="hero__strapline">
-                        We've got lots of interesting data and we want to share it with you!
-                    </h2>
-                </div>
-            </div>
-
-            <div class="l-constrain">
-                <div class="l-constrain__inner">
-                    <div class="content__wrap">
-                        <span class="h-group__lead h3">Constituencies</span>
-                        <p style="margin-top: 20px; padding-left: 20px;">
-                            <a href="/constituencies/results">Constituency results</a><br>
-                            Charts showing party results in each constituency
-                        </p>
-                        <p style="padding-left: 20px;">
-                            <a href="/constituencies/leading-parties">Leading party for each constituency</a><br>
-                            A map of the UK showing which party is leading in each constituency
-                        </p>
-                    </div>
-                </div>
-
-                <div class="l-constrain__inner">
-                    <div class="content__wrap">
-                        <span class="h-group__lead h3">Countries</span>
-                        <p style="margin-top: 20px; padding-left: 20px;">
-                            <a href="/countries/results#countries/england">Country results</a><br>
-                            Charts showing party and issue results in each country
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero">
-                <div class="l-constrain">
-                    <div class="l-constrain__inner">
-                            <div>
-                                <!-- Begin MailChimp Signup Form -->
-                                <form action="//voteforpolicies.us3.list-manage.com/subscribe/post?u=8d4ba3b0edc03f56d90535663&amp;id=484928f2ec" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
-                                  <label style="clear: both; display: block; padding: 2em 0 1em 0;" for="mce-EMAIL">We can let you know when there's new data to see or download...</label>
-                                  <input type="email" id="mce-EMAIL" name="EMAIL" placeholder="you@domain.com" class="tip form__input">
-                                  <input type="hidden" value="16" name="group[9637][16]" id="mce-group[9637]-9637-4">
-                                  <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                                  <div style="position: absolute; left: -5000px;"><input type="text" name="b_8d4ba3b0edc03f56d90535663_484928f2ec" tabindex="-1" value=""></div>
-                                  <div class="form__actions">
-                                    <button class="btn btn--medium btn--positive" type="submit" name="subscribe" id="mc-embedded-subscribe">Sign Up</button>
-                                  </div>
-                                </form>
-                                <!--End mc_embed_signup-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<%- @content %>
 
         </div>
 
@@ -150,8 +94,9 @@
         } catch (e) {}
         </script>
 
-        <script src="/js/main.js"></script>
+        <%- @getBlock('scripts').add(['/js/main.js']).add(@site.scripts or []).add(@document.scripts or []).toHTML() %>
 
+        <% if 'production' in @getEnvironments(): %>
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -161,6 +106,7 @@
           ga('create', 'UA-15339257-4', 'auto');
           ga('send', 'pageview');
         </script>
+        <% end %>
 
     </body>
 </html>
