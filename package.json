@@ -19,7 +19,8 @@
   "homepage": "https://github.com/voteforpolicies/data-website",
   "dependencies": {
     "docpad": "~6.78.1",
-    "docpad-plugin-eco": "^2.1.0"
+    "docpad-plugin-cleanurls": "~2.7.0",
+    "docpad-plugin-eco": "~2.1.0"
   },
   "devDependencies": {
     "karma": "^0.12.31",

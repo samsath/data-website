@@ -1,0 +1,60 @@
+---
+layout: "default"
+title: "Leading party for each constituency"
+scripts: ['/js/map.js']
+libraries: ['/dist/js/vendor/d3.3.4.11_bda6b289e4ae055a12d6905eeed9775c.js', '/dist/js/vendor/topojson.1.1.0_cc9cd1896cf2fc62a7e1f4a28bc8c305.js', '/dist/js/vendor/lodash.compat_eced7a51b689fc469c4cf9600fae6610.js', '/dist/js/vendor/handlebars-v3.0.0.js']
+---
+            <div class="hero">
+                <div class="l-constrain">
+                    <h1 class="hero__impact">
+                        Vote for Policies Data
+                    </h1>
+                    <h2 class="hero__strapline">
+                        Leading party for each constituency
+                    </h2>
+
+                    <!-- TODO - Refactor layout as it's very fixed right now -->
+                    <div id="left_column">
+                        <section id="data_table">
+                          <table>
+                            <thead>
+                            <tr>
+                              <th>Constituency</th>
+                              <th>Leading Party</th>
+                            </tr>
+                            </thead>
+                            <tbody id="constituency-rows">
+                                <tr>
+                                    <td colspan="2">
+                                        Loading
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </table>
+
+                        </section>
+                    </div>
+                    <div id="right_column">
+                        <section id="map">
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+            <div class="l-constrain">
+                <div class="l-constrain__inner">
+                    <div class="content__wrap">
+                        <p>Data updated every hour</p>
+                        <a href="https://github.com/martinjc/UK-GeoJSON">GeoJSON and TopoJSON UK Boundary Data</a> by Martin Chorley is licensed under a Creative Commons Attribution 4.0 International License
+                    </div>
+                </div>
+            </div>
+
+            <script id="constituency-list" type="text/x-handlebars-template">
+              {{#each constituencies}}
+              <tr class="{{slugify constituency_name}}">
+                <td>{{ constituency_name }}</td>
+                <td>{{ party_name }}</td>
+              </tr>
+              {{/each}}
+            </script>
