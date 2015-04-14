@@ -24,10 +24,10 @@ navToggle.onclick = function(e) {
 /**
  * Country routes
  */
-router.get('countries/results', require('./countries/countries'));
+router.get(/countries\/results/, require('./countries/countries'));
 
 /**
  * Constituency routes
  */
-router.get('constituencies/leading-parties', require('./constituencies/leading-parties'));
-router.get('constituencies/results', require('./constituencies/results'));
+router.get(/constituencies\/leading-parties/, require('./constituencies/leading-parties'));
+router.get(/constituencies\/results/, require('./constituencies/results'));
