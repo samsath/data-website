@@ -1,4 +1,6 @@
-(function(global, List, _) {
+var _ = require('lodash');
+
+module.exports = (function(window, List) {
 
   /**
    * A bit of a wrapper for the List class
@@ -67,6 +69,6 @@
   };
 
   // Be nice to have modules :)
-  window.Autocomplete = Autocomplete;
+  return Autocomplete;
 
-})(window, List, _);
+})(window, window.List || void(0));

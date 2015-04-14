@@ -1,7 +1,13 @@
-var navCollapsedClass = 'navigation--collapsed';
+var Grapnel = require('grapnel');
 
+var navCollapsedClass = 'navigation--collapsed';
 var nav = document.getElementById('navigation');
 var navToggle = document.getElementById('navigation-toggle');
+
+var router = new Grapnel({
+    pushState: true,
+    root: '/'
+});
 
 // Hide navgation by default
 nav.classList.add(navCollapsedClass);
@@ -14,3 +20,14 @@ navToggle.onclick = function(e) {
         nav.classList.add(navCollapsedClass);
     }
 };
+
+/**
+ * Country routes
+ */
+router.get('countries/results', require('./countries/countries'));
+
+/**
+ * Constituency routes
+ */
+router.get('constituencies/leading-parties', require('./constituencies/leading-parties'));
+router.get('constituencies/results', require('./constituencies/results'));

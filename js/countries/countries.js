@@ -1,11 +1,18 @@
-;
-(function(CONFIG, $, router) {
+var CountryTabs = require('./country-tabs');
+var Grapnel = require('grapnel');
+var $ = require('jQuery');
 
-    var countriesPromise = $.getJSON(CONFIG.apiBaseUrl + '/countries.json');
+var VFP_DATA_CONFIG = require('../config');
 
-    countriesPromise.then(function (countries) {
+function Countries() {
+
+    var router = new Grapnel();
+
+    $.getJSON(VFP_DATA_CONFIG.apiBaseUrl + '/countries.json').then(function (countries) {
         var tabs = new CountryTabs(countries, '#country-tab-list-template', '#country-tab-list');
         router.get('countries/:slug', tabs.handleRequest.bind(tabs));
     });
 
-})(VFP_DATA_CONFIG, jQuery.noConflict(), new Grapnel());
+}
+
+module.exports = Countries;
