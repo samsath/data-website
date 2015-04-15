@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
-    "build:js": "./node_modules/.bin/browserify js/main.js | ./node_modules/.bin/uglifyjs > dist/js/build.js",
+    "build:js": "./node_modules/.bin/browserify js/main.js | ./node_modules/.bin/uglify > dist/js/build.js",
     "watch:js": "./node_modules/.bin/watchify --debug js/main.js -o dist/js/build.js"
   },
   "repository": {
