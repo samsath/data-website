@@ -3,7 +3,7 @@ var _ = require('lodash');
 var nimble = require('nimble');
 var Handlebars = require('Handlebars');
 var Chartist = require('chartist');
-var CONFIG = require('../config');
+var VFP_CONFIG_DATA = require('../config');
 var Autocomplete = require('../autocomplete');
 
 var cache = {};
@@ -12,7 +12,7 @@ function init() {
     nimble.parallel([
         // Load list of constituencies
         function (callback) {
-            d3.json(CONFIG.apiBaseUrl + '/constituencies.json', handleConstituenciesList(callback));
+            d3.json(VFP_CONFIG_DATA.apiBaseUrl + '/constituencies.json', handleConstituenciesList(callback));
         },
         // Load constituency results HTML template
         function (callback) {
@@ -23,7 +23,7 @@ function init() {
 
 function loadConstituencyResults(constituency) {
 
-    d3.json(CONFIG.apiBaseUrl + '/constituencies/' + constituency.slug + '/results.json', function (err, constituencyResults) {
+    d3.json(VFP_CONFIG_DATA.apiBaseUrl + '/constituencies/' + constituency.slug + '/results.json', function (err, constituencyResults) {
         if (err) {
             d3.select('#constituency-results')
                 .html('<div class="l-constrain l-constrain--pad-up">Oops, we couldn\'t load results for that constituency - there may not be any yet.</div>');
