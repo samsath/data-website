@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/karma/bin/karma start",
-    "build:js": "./node_modules/.bin/browserify js/main.js | ./node_modules/.bin/uglify > dist/js/build.js",
+    "build:js": "./node_modules/.bin/browserify js/main.js | ./node_modules/.bin/uglifyjs > dist/js/build.js",
     "watch:js": "./node_modules/.bin/watchify --debug js/main.js -o dist/js/build.js"
   },
   "repository": {
@@ -31,7 +31,7 @@
     "karma-mocha": "^0.1.10",
     "karma-sinon-chai": "^0.3.0",
     "mocha": "^2.2.3",
-    "uglify": "^0.1.3",
+    "uglifyjs": "^2.4.10",
     "watchify": "^3.1.1"
   },
   "dependencies": {
