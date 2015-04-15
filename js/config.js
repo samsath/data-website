@@ -1,3 +1,3 @@
-var VFP_DATA_CONFIG = {
+module.exports = {
     apiBaseUrl: 'https://api.voteforpolicies.org.uk/v1'
 };
