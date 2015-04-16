@@ -3,6 +3,13 @@ var _ = require('lodash');
 var Handlebars = require('Handlebars');
 var Chartist = require('chartist');
 
+var pieChartResultsTemplatePromise = $.ajax({
+    url: '/partials/results/pie-chart.html',
+    dataType: 'text'
+}).then(function (html) {
+    return Handlebars.compile(html);
+});
+
 var responsiveOptions = [
     ['screen and (min-width: 100px)', {
         chartPadding: 0,
@@ -67,13 +74,17 @@ function setupData(data) {
 /**
  * Renders a pie-chart and key for a given set of parties data
  *
- * @param {Array} parties
+ * @param {Array} results
+ * @param {string} target       css selector
  * @constructor
  */
-function PieChart(parties) {
-    this.data = setupData(parties);
-    this.chartElement = document.querySelector('#party-results #pie-chart');
-    this.keyElement = document.querySelector('#party-results #pie-chart-key');
+function PieChart(results, target) {
+
+    this.total = parseInt(results.surveys_count, 10);
+    this.parties = setupData(results.parties);
+
+    this.target = document.querySelector(target || '#pie-chart-results');
+
     this.render();
 }
 
@@ -83,13 +94,17 @@ function PieChart(parties) {
  */
 PieChart.prototype.render = function render() {
 
-    var keyTarget = document.querySelector('#pie-chart-key-template');
+    pieChartResultsTemplatePromise.then(function (compiledTemplateFn) {
 
-    this.keyElement.innerHTML = Handlebars.compile(keyTarget.innerHTML).call(this, {
-        parties: this.data.keyData
-    });
+        this.target.innerHTML = compiledTemplateFn({
+            parties: this.parties.keyData,
+            total: this.total
+        });
 
-    new Chartist.Pie(this.chartElement, this.data.chartData, options, responsiveOptions);
+        new Chartist.Pie(document.querySelector('#pie-chart'), this.parties.chartData, options, responsiveOptions);
+
+    }.bind(this));
+
 };
 
 module.exports = PieChart;

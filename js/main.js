@@ -4,6 +4,11 @@ var navCollapsedClass = 'navigation--collapsed';
 var nav = document.getElementById('navigation');
 var navToggle = document.getElementById('navigation-toggle');
 
+var Countries = require('./countries/countries');
+var ConsituencyLeadingParties = require('./constituencies/leading-parties');
+var ConstituencyResults = require('./constituencies/results');
+
+
 var router = new Grapnel({
     pushState: true,
     root: '/'
@@ -24,10 +29,17 @@ navToggle.onclick = function(e) {
 /**
  * Country routes
  */
-router.get(/countries\/results/, require('./countries/countries'));
+router.get(/countries\/results/, function () {
+    new Countries();
+});
 
 /**
  * Constituency routes
  */
-router.get(/constituencies\/leading-parties/, require('./constituencies/leading-parties'));
-router.get(/constituencies\/results/, require('./constituencies/results'));
+router.get(/constituencies\/leading-parties/, function () {
+    new ConsituencyLeadingParties();
+});
+
+router.get(/constituencies\/results/, function () {
+    new ConstituencyResults();
+});

@@ -1,216 +1,114 @@
-var d3 = require('d3');
+var $ = require('jQuery');
 var _ = require('lodash');
-var nimble = require('nimble');
 var Handlebars = require('Handlebars');
-var Chartist = require('chartist');
 var VFP_CONFIG_DATA = require('../config');
 var Autocomplete = require('../autocomplete');
-
+var Grapnel = require('Grapnel');
+var PieChart = require('../results/pie-chart');
+var IssueResults = require('../results/issue-results');
 var cache = {};
 
-function init() {
-    nimble.parallel([
-        // Load list of constituencies
-        function (callback) {
-            d3.json(VFP_CONFIG_DATA.apiBaseUrl + '/constituencies.json', handleConstituenciesList(callback));
-        },
-        // Load constituency results HTML template
-        function (callback) {
-            d3.text('/partials/constituency-results.html', templateLoaded(callback));
-        }
-    ], checkLocationHash);
+/**
+ * Get the API url for a specific constituency
+ *
+ * @param {string} slug
+ * @returns {string}
+ */
+function getConstituencyUrl(slug) {
+    return VFP_CONFIG_DATA.apiBaseUrl + '/constituencies/' + slug + '/results.json';
 }
 
-function loadConstituencyResults(constituency) {
+/**
+ * ConstituencyResults
+ *
+ * @constructor
+ */
+function ConstituencyResults() {
 
-    d3.json(VFP_CONFIG_DATA.apiBaseUrl + '/constituencies/' + constituency.slug + '/results.json', function (err, constituencyResults) {
-        if (err) {
-            d3.select('#constituency-results')
-                .html('<div class="l-constrain l-constrain--pad-up">Oops, we couldn\'t load results for that constituency - there may not be any yet.</div>');
-        }
+    this.router = new Grapnel();
+    this.constituenciesPromise = $.getJSON(VFP_CONFIG_DATA.apiBaseUrl + '/constituencies.json');
 
-        displayPartyResults(constituencyResults, constituency);
-    });
+    this.listTemplateFn = Handlebars.compile(document.querySelector('#constituency-list-template').innerHTML);
+    this.titleTemplateFn = Handlebars.compile(document.querySelector('#constituency-title-template').innerHTML);
+
+    this.titleElement = document.querySelector('#constituency-title');
+    this.listContainerElement = document.querySelector('#constituencies-list');
+
+    this.list = this.initializeSearch();
+    this.initializeRouter();
 }
 
-function handleConstituenciesList(callback) {
+/**
+ * Start the router listening for a constituncy slug hash change
+ */
+ConstituencyResults.prototype.initializeRouter = function initializeRouter() {
+    this.router.get(':constituencySlug', function (req) {
+        this.loadConstituency(req.params.constituencySlug);
+    }.bind(this));
+};
 
-    return function (err, constituencies) {
-        if (err) {
-            return console.error(err);
-        }
+/**
+ * Boot up the search results after we've loaded the constituencies
+ */
+ConstituencyResults.prototype.initializeSearch = function initializeSearch() {
 
-        cache.constituencies = constituencies;
+    return this.constituenciesPromise.then(function (constituencies) {
 
-        var container = document.querySelector('#constituencies-list');
+        var autocomplete;
 
-        container.innerHTML = Handlebars.compile(document.querySelector('#constituency-list-template').innerHTML)({
+        this.listContainerElement.innerHTML = this.listTemplateFn({
             constituencies: constituencies
         });
 
-        var autocomplete = new Autocomplete('constituency-search', {valueNames: ['constituency']});
+        autocomplete = new Autocomplete('constituency-search', {valueNames: ['constituency']});
+        autocomplete.list.addEventListener('click', autocomplete.hideCompletions.bind(autocomplete));
 
-        autocomplete.list.addEventListener('click', function (ev) {
+        return this.listContainerElement;
 
-            var element = ev.target;
+    }.bind(this));
+};
 
-            if (element.tagName !== 'A') {
-                return;
-            }
+/**
+ * Update the constituencyName element with the one specified and the value in the search input
+ * @param {string} constituencyName
+ */
+ConstituencyResults.prototype.updateTitle = function updateTitle(constituencyName) {
 
-            loadConstituencyResults({
-                slug: element.getAttribute('data-constituency-slug'),
-                name: element.getAttribute('data-constituency-name')
-            });
-
-            // Set the name in search when clicked
-            document.querySelector('.search').value = element.getAttribute('data-constituency-name');
-
-            autocomplete.hideCompletions();
-
-        });
-
-        callback();
-    };
-}
-
-function templateLoaded(callback) {
-
-    return function (err, htmlTemplate) {
-        if (err) {
-            return console.error(err);
-        }
-
-        // Store template for future use
-        cache.htmlTemplate = htmlTemplate;
-
-        callback();
-    };
-}
-
-function checkLocationHash() {
-
-    // Check if a constituency has been specified in the URL
-    if (location.hash) {
-        var locationHash = location.hash.substr(1);
-        if (Array.prototype.indexOf !== 'undefined') {
-            // Is constituency valid?
-            var constituencyFound = _.find(cache.constituencies, 'constituency_slug', locationHash);
-            if (constituencyFound && constituencyFound.constituency_slug === locationHash) {
-                // Load constituency results
-                loadConstituencyResults({
-                    slug: constituencyFound.constituency_slug,
-                    name: constituencyFound.constituency_name
-                });
-            }
-        }
-    }
-}
-
-function displayPartyResults(constituencyResults, constituency) {
-
-    var data = setupData(constituencyResults.parties);
-    var constituencyResultsTab = d3.select('#constituency-results');
-
-    // Set constituency results HTML template
-    constituencyResultsTab.html(cache.htmlTemplate);
-
-    // Set constituency name
-    d3.select('.survey-results__section-title .constituency-name').text(constituency.name);
-
-    // Set surveys count
-    d3.select('.survey-results__total .completed-count').text(constituencyResults.surveys_count);
-
-    // Display results
-    displayChartKey(data.keyData);
-    displayPieChart(data.chartData);
-}
-
-function displayChartKey(keyData) {
-
-    var html = '';
-
-    // TODO - Template properly
-    _.forEach(keyData, function (keyItem) {
-
-        html += '\
-                <div class="party-block party-block--' + keyItem.slug + '">\
-                    <dl class="hgroup party-block__policy-party">\
-                        <dd class="h-group__main">\
-                            <span class="party-block__party"> ' + keyItem.name + ' </span>\
-                            <img src="/img/parties/' + keyItem.slug + '.png" alt=""\
-                                 class="party-block__party-logo"/>\
-                        </dd>\
-                        <dt class="h-group__lead">' + keyItem.percentage + '</dt>\
-                    </dl>\
-                </div>';
+    this.list.then(function (list) {
+        list.querySelector('.search').value = constituencyName;
     });
 
-    d3.select('.survey-results__percentages').html(html);
-}
+    this.titleElement.innerHTML = this.titleTemplateFn({name: constituencyName});
+};
 
-function displayPieChart(chartData) {
-    if (typeof Chartist === 'undefined') {
-        return;
-    }
+/**
+ * Load a constituency by a particular slug
+ * We wait until all the constituencies have loaded first and then set the input search value
+ * Then cache the result of the GET request
+ * Then create a new PieChart and a new IssueResults
+ *
+ * @param {string} slug
+ */
+ConstituencyResults.prototype.loadConstituency = function loadConstituency(slug) {
 
-    var chartContainer = d3.select('.pie-chart').node();
+    this.constituenciesPromise.then(function (constituencies) {
 
-    var options = {
-        labelInterpolationFnc: function (value) {
-            return value[0];
+        var constituency = _.find(constituencies, {constituency_slug: slug});
+
+        this.updateTitle(constituency.constituency_name);
+
+        if (!cache[constituency.constituency_slug]) {
+            cache[constituency.constituency_slug] = $.getJSON(getConstituencyUrl(constituency.constituency_slug));
         }
-    };
 
-    var responsiveOptions = [
-        ['screen and (min-width: 100px)', {
-            chartPadding: 0,
-            labelOffset: 30,
-            labelDirection: 'explode',
-            labelInterpolationFnc: function (value) {
-                return value;
-            }
-        }]
-    ];
+        return cache[constituency.constituency_slug];
 
-    new Chartist.Pie(chartContainer, chartData, options, responsiveOptions);
-}
+    }.bind(this)).then(function (constituency) {
 
-function setupData(data) {
+        new PieChart(constituency);
+        new IssueResults(constituency.issues);
 
-    // Turn the data provided into one the chart can use
-    var chartData = {labels: [], series: []};
-
-    var keyData = [];
-
-    var total = _.reduce(_.pluck(data, 'party_votes'), function (sum, num) {
-        return parseInt(sum, 10) + parseInt(num, 10);
     });
+};
 
-    _.forEach(data, function (segment) {
-
-        var percent = Math.round((( parseInt(segment.party_votes, 10) / total) * 100) * 10) / 10;
-
-        keyData.push({
-            name: segment.party_name,
-            slug: segment.party_slug,
-            percentage: percent + '%'
-        });
-
-        if (percent >= 5) {
-            chartData.labels.push(percent + '%');
-        } else {
-            chartData.labels.push('');
-        }
-        chartData.series.push({
-            data: parseInt(segment.party_votes, 10), className: 'pie-chart--' + segment.party_slug
-        });
-    });
-
-    return {
-        chartData: chartData,
-        keyData: keyData
-    };
-}
-
-module.exports = init;
+module.exports = ConstituencyResults;
