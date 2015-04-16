@@ -1,0 +1,71 @@
+---
+layout: "default"
+title: "Constituency results"
+scripts: ['/dist/js/vendor/list.1.1.1.min.js']
+---
+    <div class="hero">
+        <div class="l-constrain">
+            <h1 class="hero__impact">
+                Constituency Results
+            </h1>
+
+            <h2 class="hero__strapline">
+                View data from all over the country
+            </h2>
+        </div>
+    </div>
+
+
+    <div id="constituencies-list"></div>
+
+    <div class="l-constrain">
+        <div id="constituency-results">
+
+            <div id="constituency-title">
+                <p class="empty">Search and select a constituency from the form above, results will appear below</p>
+            </div>
+
+            <div id="pie-chart-results">
+            </div>
+
+            <div class="u-divide-top--thick" aria-role="region" id="issue-results">
+            </div>
+
+        </div>
+
+    </div>
+
+    <script id="constituency-title-template" type="text/x-handlebars-template">
+        <div class="survey-results__section-title">
+            <h1 class="h3 h--thin u-no-margin" tabindex="0">
+                These are the overall results for {{name}}
+            </h1>
+        </div>
+    </script>
+
+    <script id="constituency-list-template" type="text/x-handlebars-template">
+
+        <div class="l-constrain l-constrain--narrow l-constrain--no-overflow">
+            <div id="constituency-search" class="search-list constituency-search">
+
+                <fieldset>
+                    <label for="consituency-search-input" class="form__label u-visuallyhidden">Search for a
+                        consitutency:</label>
+                    <input id="consituency-search-input" class="search form__input"
+                           placeholder="Enter a constituency name"/>
+                </fieldset>
+
+                <ul class="search-list__results list">
+                    {{#each constituencies}}
+                    <li>
+                        <a href="#{{constituency_slug}}" data-constituency-slug="{{constituency_slug}}"
+                           data-constituency-name="{{constituency_name}}" class="constituency">{{constituency_name}}</a>
+                    </li>
+                    {{/each}}
+                </ul>
+
+            </div>
+        </div>
+
+    </script>
+

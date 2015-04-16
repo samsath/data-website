@@ -94,7 +94,7 @@
         } catch (e) {}
         </script>
 
-        <%- @getBlock('scripts').add(['/dist/js/build.js']).add(@document.scripts or []).toHTML() %>
+        <%- @getBlock('scripts').add(@document.scripts or []).add(['/dist/js/build.js']).toHTML() %>
 
         <% if 'production' in @getEnvironments(): %>
         <script>
