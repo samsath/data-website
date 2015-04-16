@@ -1,3 +1,5 @@
+'use strict';
+
 var CountryResults = require('./country-results');
 var $ = require('jQuery');
 var Handlebars = require('Handlebars');

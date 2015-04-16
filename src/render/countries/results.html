@@ -1,0 +1,50 @@
+---
+layout: "default"
+title: "Country results"
+---
+    <div class="hero">
+        <div class="l-constrain">
+            <h1 class="hero__impact">
+                Vote for Policies Data
+            </h1>
+
+            <h2 class="hero__strapline">
+                Country Results
+            </h2>
+
+        </div>
+    </div>
+
+    <div class="tabber__nav">
+        <div class="l-constrain l-constrain--no-overflow l-constrain--relative u-no-mobile-padding tabber__nav--expanded">
+            <ul role="tablist" id="country-tab-list"></ul>
+        </div>
+    </div>
+
+    <section id="country-results" class="u-page-padding" aria-hidden="false"></section>
+
+    <script id="country-tab-list-template" type="text/x-handlebars-template">
+        {{#each countries}}
+        <li role="presentation">
+            <a href="#countries/{{ slug }}" role="tab" class="tabber__nav__link" {{#if selected}} aria-selected="true" {{/if}}>
+            {{ name }} <span class="u-bp-only-small-and-large">results</span>
+            </a>
+        </li>
+        {{/each}}
+    </script>
+
+    <script id="country-results-template" type="text/x-handlebars-template">
+
+        <div class="survey-results__section-title">
+            <h1 class="h3 h--thin u-no-margin" tabindex="0">
+                These are the overall results for {{name}}
+            </h1>
+        </div>
+
+        <div id="pie-chart-results">
+        </div>
+
+        <div class="u-divide-top--thick" aria-role="region" id="issue-results">
+        </div>
+
+    </script>

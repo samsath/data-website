@@ -1,0 +1,58 @@
+---
+layout: "default"
+title: "Leading party for each constituency"
+---
+            <div class="hero">
+                <div class="l-constrain">
+                    <h1 class="hero__impact">
+                        Vote for Policies Data
+                    </h1>
+                    <h2 class="hero__strapline">
+                        Leading party for each constituency
+                    </h2>
+
+                    <!-- TODO - Refactor layout as it's very fixed right now -->
+                    <div id="left_column">
+                        <section id="data_table">
+                          <table>
+                            <thead>
+                            <tr>
+                              <th>Constituency</th>
+                              <th>Leading Party</th>
+                            </tr>
+                            </thead>
+                            <tbody id="constituency-rows">
+                                <tr>
+                                    <td colspan="2">
+                                        Loading
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </table>
+
+                        </section>
+                    </div>
+                    <div id="right_column">
+                        <section id="map">
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+            <div class="l-constrain">
+                <div class="l-constrain__inner">
+                    <div class="content__wrap">
+                        <p>Data updated every hour</p>
+                        <a href="https://github.com/martinjc/UK-GeoJSON">GeoJSON and TopoJSON UK Boundary Data</a> by Martin Chorley is licensed under a Creative Commons Attribution 4.0 International License
+                    </div>
+                </div>
+            </div>
+
+            <script id="constituency-list" type="text/x-handlebars-template">
+              {{#each constituencies}}
+              <tr class="{{slugify constituency_name}}">
+                <td>{{ constituency_name }}</td>
+                <td>{{ party_name }}</td>
+              </tr>
+              {{/each}}
+            </script>

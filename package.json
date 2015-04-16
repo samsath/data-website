@@ -2,11 +2,12 @@
   "name": "vfp-data-website",
   "version": "1.0.0",
   "description": "VFP Data Website",
-  "main": "index.js",
+  "main": "./node_modules/.bin/docpad-server",
   "scripts": {
+    "start": "./node_modules/.bin/docpad-server",
     "test": "./node_modules/karma/bin/karma start",
-    "build:js": "./node_modules/.bin/browserify js/main.js | ./node_modules/.bin/uglifyjs > dist/js/build.js",
-    "watch:js": "./node_modules/.bin/watchify --debug js/main.js -o dist/js/build.js"
+    "build:js": "./node_modules/.bin/browserify src/static/js/main.js | ./node_modules/.bin/uglifyjs > src/static/dist/js/build.js",
+    "watch:js": "./node_modules/.bin/watchify --debug src/static/js/main.js -o src/static/dist/js/build.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,10 @@
   "dependencies": {
     "chartist": "^0.7.3",
     "d3": "^3.5.5",
+    "docpad": "^6.78.1",
+    "docpad-plugin-assets": "^2.1.2",
+    "docpad-plugin-cleanurls": "^2.7.0",
+    "docpad-plugin-eco": "^2.1.0",
     "grapnel": "^0.5.8",
     "handlebars": "^3.0.1",
     "jquery": "^2.1.3",

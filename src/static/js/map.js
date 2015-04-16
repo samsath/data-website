@@ -1,3 +1,5 @@
+'use strict';
+
 var Handlebars = require('Handlebars');
 var _ = require('lodash');
 var d3 = require('d3');

@@ -1,3 +1,5 @@
+'use strict';
+
 var CountryTabs = require('./country-tabs');
 var Grapnel = require('grapnel');
 var $ = require('jQuery');
