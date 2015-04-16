@@ -1,3 +1,5 @@
+'use strict';
+
 var Handlebars = require('Handlebars');
 
 var IssueResults = require('../results/issue-results');

@@ -1,3 +1,5 @@
+'use strict';
+
 var $ = require('jQuery');
 var _ = require('lodash');
 var Handlebars = require('Handlebars');

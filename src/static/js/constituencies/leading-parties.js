@@ -1,3 +1,5 @@
+'use strict';
+
 var Map = require('../map');
 
 function LeadingParties() {

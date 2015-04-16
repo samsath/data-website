@@ -1,3 +1,5 @@
+'use strict';
+
 var Grapnel = require('grapnel');
 
 var navCollapsedClass = 'navigation--collapsed';
