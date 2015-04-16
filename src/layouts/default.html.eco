@@ -38,7 +38,7 @@
         <div class="masthead  masthead--light " role="banner"  vfp-show-hide>
             <div class="l-constrain l-constrain--pad-up l-constrain--relative-desktop">
                 <div class="masthead__logo">
-                    <a href="/" class="brand  brand--white ">
+                    <a href="https://voteforpolicies.org.uk/" class="brand  brand--white ">
                         <span class="u-visuallyhidden">Vote for Policies</span>
                         <i class="icon logo"></i>
                     </a>
@@ -58,7 +58,22 @@
 
                     <ul class="list-plain">
                         <li>
-                        <a href="https://voteforpolicies.org.uk/">Return to main site</a>
+                            <a href="https://voteforpolicies.org.uk/survey/1/select-issues">Take the survey</a>
+                        </li>
+                        <li>
+                            <a href="https://voteforpolicies.org.uk/about">About</a>
+                        </li>
+                        <li>
+                            <a href="https://data.voteforpolicies.org.uk">Data</a>
+                        </li>
+                        <li>
+                            <a href="https://voteforpolicies.org.uk/faq">FAQ</a>
+                        </li>
+                        <li>
+                            <a href="https://voteforpolicies.org.uk/blog">Blog</a>
+                        </li>
+                        <li>
+                            <a href="https://voteforpolicies.org.uk/contact">Contact</a>
                         </li>
                     </ul>
                 </nav>
