@@ -38,9 +38,10 @@
   "dependencies": {
     "chartist": "^0.7.3",
     "d3": "^3.5.5",
-    "docpad": "~6.78.1",
-    "docpad-plugin-cleanurls": "~2.7.0",
-    "docpad-plugin-eco": "~2.1.0",
+    "docpad": "^6.78.1",
+    "docpad-plugin-assets": "^2.1.2",
+    "docpad-plugin-cleanurls": "^2.7.0",
+    "docpad-plugin-eco": "^2.1.0",
     "grapnel": "^0.5.8",
     "handlebars": "^3.0.1",
     "jquery": "^2.1.3",

@@ -3,13 +3,13 @@
 
 // Define the DocPad Configuration
 var docpadConfig = {
-    environments: {
-        static: {
-            plugins: {
-                cleanurls: {
-                    static: false	
-                }
-            }
+    plugins: {
+        cleanurls: {
+            enabled: true
+        },
+        assets: {
+            enabled: true,
+            retainName: 'yes'
         }
     }
 };

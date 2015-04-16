@@ -16,17 +16,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- prod:oldie.css -->
-        <!--[if lte IE 8]><link rel="stylesheet" href="/dist/css/oldie.css/oldie_c75fd2c9c02f76d12554d39a695433d4.css"><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="<%- @asset('/dist/css/oldie.css/oldie.css') %>"><![endif]-->
         <!-- endbuild -->
 
         <!-- prod:frontend.css -->
-        <!--[if gt IE 8]><!--><link rel="stylesheet" href="/dist/css/frontend.css/frontend_ad646afbbc167acc0aad6d05abb0a5ac.css"><!--<![endif]-->
+        <!--[if gt IE 8]><!--><link rel="stylesheet" href="<%- @asset('/dist/css/frontend.css/frontend.css') %>"><!--<![endif]-->
         <!-- endbuild -->
 
-        <link rel="stylesheet" type="text/css" href="/css/data.css">
-        <link rel="stylesheet" type="text/css" href="/css/map.css">
+        <link rel="stylesheet" type="text/css" href="<%- @asset('/css/data.css') %>">
+        <link rel="stylesheet" type="text/css" href="<%- @asset('/css/map.css') %>">
 
-        <script src="/dist/js/vendor/modernizr_37130cc264634bda38e3959c6f7de5fa.js"></script>
+        <script src="<%- @asset('/dist/js/vendor/modernizr.js') %>"></script>
     </head>
     <body>
 
@@ -109,7 +109,7 @@
         } catch (e) {}
         </script>
 
-        <%- @getBlock('scripts').add(@document.scripts or []).add(['/dist/js/build.js']).toHTML() %>
+        <%- @getBlock('scripts').add(@document.scripts or []).add([@asset('/dist/js/build.js')]).toHTML() %>
 
         <% if 'production' in @getEnvironments(): %>
         <script>
