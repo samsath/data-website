@@ -1,4 +1,3 @@
-var $ = require('jQuery');
 var Handlebars = require('Handlebars');
 
 var IssueResults = require('../results/issue-results');
@@ -13,10 +12,8 @@ var PieChart = require('../results/pie-chart');
  */
 function CountryResults (country, results) {
     this.country = country;
-    country.total = parseInt(results.surveys_count, 10);
     this.render();
-
-    new PieChart(results.parties);
+    new PieChart(results);
     new IssueResults(results.issues);
 }
 

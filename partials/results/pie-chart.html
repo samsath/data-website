@@ -1,0 +1,28 @@
+<div class="l-constrain l-constrain--pad-up" id="party-results">
+    <div class="l-grid l-grid--1to2-col">
+        <div class="l-grid-unit">
+            <div class="pie-chart__wrapper">
+                <div class="pie-chart" id="pie-chart">
+                </div>
+                <div class="survey-results__total">
+                    Based on <strong>{{thousands total }} completed surveys</strong>
+                </div>
+            </div>
+        </div>
+        <div class="l-grid-unit">
+            <div class="survey-results__percentages" aria-live="polite">
+                {{#each parties}}
+                <div class="party-block party-block--{{slug}}">
+                    <dl class="hgroup party-block__policy-party">
+                        <dd class="h-group__main">
+                            <span class="party-block__party"> {{name}} </span>
+                            <img src="/img/parties/{{slug}}.png" alt="" class="party-block__party-logo">
+                        </dd>
+                        <dt class="h-group__lead">{{percentage}}</dt>
+                    </dl>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

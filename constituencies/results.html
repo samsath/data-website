@@ -86,7 +86,15 @@
     <div class="l-constrain">
         <div id="constituency-results">
 
-            <p class="empty">Search and select a constituency from the form above, results will appear below</p>
+            <div id="constituency-title">
+                <p class="empty">Search and select a constituency from the form above, results will appear below</p>
+            </div>
+
+            <div id="pie-chart-results">
+            </div>
+
+            <div class="u-divide-top--thick" aria-role="region" id="issue-results">
+            </div>
 
         </div>
 
@@ -117,9 +125,13 @@
     }
 </script>
 
-
-<script src="/dist/js/vendor/list.1.1.1.min.js"></script>
-<script src="/dist/js/build.js"></script>
+<script id="constituency-title-template" type="text/x-handlebars-template">
+    <div class="survey-results__section-title">
+        <h1 class="h3 h--thin u-no-margin" tabindex="0">
+            These are the overall results for {{name}}
+        </h1>
+    </div>
+</script>
 
 <script id="constituency-list-template" type="text/x-handlebars-template">
 
@@ -146,6 +158,10 @@
     </div>
 
 </script>
+
+<script src="/dist/js/vendor/list.1.1.1.min.js"></script>
+<script src="/dist/js/build.js"></script>
+
 
 <script>
     (function (i, s, o, g, r, a, m) {
