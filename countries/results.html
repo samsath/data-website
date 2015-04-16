@@ -128,20 +128,6 @@
 </script>
 
 
-<script id="pie-chart-key-template" type="text/x-handlebars-template">
-    {{#each parties}}
-    <div class="party-block party-block--{{slug}}">
-        <dl class="hgroup party-block__policy-party">
-            <dd class="h-group__main">
-                <span class="party-block__party"> {{name}} </span>
-                <img src="/img/parties/{{slug}}.png" alt="" class="party-block__party-logo">
-            </dd>
-            <dt class="h-group__lead">{{percentage}}</dt>
-        </dl>
-    </div>
-    {{/each}}
-</script>
-
 
 <script id="country-results-template" type="text/x-handlebars-template">
 
@@ -151,68 +137,31 @@
         </h1>
     </div>
 
-    <div class="l-constrain l-constrain--pad-up" id="party-results">
-        <div class="l-grid l-grid--1to2-col">
-            <div class="l-grid-unit">
-                <div class="pie-chart__wrapper">
-                    <div class="pie-chart" id="pie-chart">
-                    </div>
-                    <div class="survey-results__total">
-                        Based on <strong>{{thousands total }} completed surveys</strong>
-                    </div>
-                </div>
-            </div>
-            <div class="l-grid-unit">
-                <div class="survey-results__percentages" aria-live="polite" id="pie-chart-key">
-                </div>
-            </div>
-        </div>
+    <div id="pie-chart-results">
     </div>
-
-    <!-- FILL ME IN WITH ABOVE -->
-    <!--<div class="l-constrain l-constrain--pad-up" id="pie-chart-results">-->
-    <!--</div>-->
 
     <div class="u-divide-top--thick" aria-role="region" id="issue-results">
     </div>
 
 </script>
 
-<script src="/dist/js/vendor/d3.3.4.11_bda6b289e4ae055a12d6905eeed9775c.js"></script>
-<script src="/dist/js/vendor/lodash.compat_eced7a51b689fc469c4cf9600fae6610.js"></script>
-<script src="/dist/js/vendor/handlebars-v3.0.0.js"></script>
-<script src="/dist/js/vendor/jquery-1.11.2.min.js"></script>
-<!--[if gt IE 8]><!-->
-<script src="/dist/js/vendor/chartist_5d77dd2e5e7402f65f08e3e4e05816ce.js"></script>
-<!--<![endif]-->
-
-<script src="/dist/js/vendor/grapnel.min.js"></script>
-
-<script src="/js/config.js"></script>
-<script src="/js/main.js"></script>
-
-<script src="/js/results/pie-chart.js"></script>
-<script src="/js/results/issue-results.js"></script>
-
-<script src="/js/countries/country-results.js"></script>
-<script src="/js/countries/country-tabs.js"></script>
-<script src="/js/countries/countries.js"></script>
+<script src="/dist/js/build.js"></script>
 
 <script>
-(function (i, s, o, g, r, a, m) {
-i['GoogleAnalyticsObject'] = r;
-i[r] = i[r] || function () {
-(i[r].q = i[r].q || []).push(arguments)
-}, i[r].l = 1 * new Date();
-a = s.createElement(o),
-m = s.getElementsByTagName(o)[0];
-a.async = 1;
-a.src = g;
-m.parentNode.insertBefore(a, m)
-})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-ga('create', 'UA-15339257-4', 'auto');
-ga('send', 'pageview');
+    ga('create', 'UA-15339257-4', 'auto');
+    ga('send', 'pageview');
 </script>
 
 </body>

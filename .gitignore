@@ -3,3 +3,4 @@
 bower_components
 node_modules
 out
+src/static/dist/js/build.js
