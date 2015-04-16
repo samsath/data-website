@@ -9,7 +9,7 @@ The Vote for Policies Data website is a static website (HTML/CSS/JavaScript) tha
 - [DocPad](https://docpad.org/)
 - [Browserify](http://browserify.org/)
 - [UglifyJS](http://lisperator.net/uglifyjs/)
-- [Watchify](http://lisperator.net/uglifyjs://github.com/substack/watchify)
+- [Watchify](https://github.com/substack/watchify)
 
 ## Setting things up for development
 
