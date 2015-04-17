@@ -34,6 +34,7 @@ function ConstituencyResults() {
     this.titleTemplateFn = Handlebars.compile(document.querySelector('#constituency-title-template').innerHTML);
 
     this.titleElement = document.querySelector('#constituency-title');
+    this.originalTitleHtml = this.titleElement.innerHTML;
     this.listContainerElement = document.querySelector('#constituencies-list');
 
     this.list = this.initializeSearch();
@@ -44,6 +45,16 @@ function ConstituencyResults() {
  * Start the router listening for a constituncy slug hash change
  */
 ConstituencyResults.prototype.initializeRouter = function initializeRouter() {
+
+    this.router.get('', function () {
+        this.titleElement.innerHTML = this.originalTitleHtml;
+        document.querySelector('#pie-chart-results').innerHTML = '';
+        document.querySelector('#issue-results').innerHTML = '';
+        this.list.then(function (list) {
+            list.querySelector('.search').value = '';
+        });
+    }.bind(this));
+
     this.router.get(':constituencySlug', function (req) {
         this.loadConstituency(req.params.constituencySlug);
     }.bind(this));
