@@ -11,6 +11,11 @@ var docpadConfig = {
             enabled: true,
             retainName: 'yes'
         }
+    },
+    environments: {
+        production: {
+            outPath: 'build'
+        }
     }
 };
 
