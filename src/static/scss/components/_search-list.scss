@@ -1,45 +1,3 @@
-.content__wrap {
-    background: #EAEAEA;
-    border-radius: 5px;
-    padding: 1em;
-}
-
-.tabber__nav__link.hidden {
-    display: none;
-}
-
-.tabber__tab {
-    display: none;
-}
-.tabber__tab.active {
-    display: block;
-}
-
-#constituencies-list {
-    text-align: left;
-}
-
-/**
- * Empty: Style a containers text when theres nothing in it
- */
-
-.empty {
-  color: #ccc;
-  padding: 2em 0 5em 0;
-
-  text-align: center;
-}
-
-/**
- * Constituency search
- */
-
-.constituency-search {
-  max-width: 700px;
-  margin: 0 auto 2em auto;
-}
-
-
 /**
  * Search List
  */
@@ -107,15 +65,4 @@
     .search-list__results a {
       padding-left: 50px;
     }
-}
-
-
-/**
- * View
- * A partial thats ajaxed in and needs a transition
- */
-.view {
-  animation: fadeIn 2s ease;
-  -webkit-animation: fadeIn 2s ease;
-  -moz-animation: fadeIn 2s ease;
 }

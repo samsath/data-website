@@ -24,7 +24,6 @@
         <!-- endbuild -->
 
         <link rel="stylesheet" type="text/css" href="<%- @asset('/css/data.css') %>">
-        <link rel="stylesheet" type="text/css" href="<%- @asset('/css/map.css') %>">
 
         <script src="<%- @asset('/dist/js/vendor/modernizr.js') %>"></script>
     </head>
