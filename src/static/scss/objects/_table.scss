@@ -1,0 +1,23 @@
+/**
+ * Note: copied from old map.css , this could be better
+ */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align:left;
+    padding:5px 10px;
+    border-bottom:1px solid #e5e5e5;
+    font-size: 0.8rem;
+}
+
+tr {
+    cursor: pointer;
+}
+
+tr.selected td {
+    background-color: #EDEDED;
+}

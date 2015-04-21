@@ -1,0 +1,14 @@
+/**
+ * Tabber: overrides from main stylesheet
+ */
+
+ .tabber__nav__link.hidden {
+     display: none;
+ }
+
+ .tabber__tab {
+     display: none;
+ }
+ .tabber__tab.active {
+     display: block;
+ }

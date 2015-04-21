@@ -10,6 +10,7 @@ The Vote for Policies Data website is a static website (HTML/CSS/JavaScript) tha
 - [Browserify](http://browserify.org/)
 - [UglifyJS](http://lisperator.net/uglifyjs/)
 - [Watchify](https://github.com/substack/watchify)
+- [Node-Sass]https://www.npmjs.com/package/node-sass)
 
 ## Setting things up for development
 
@@ -31,4 +32,9 @@ docpad run
 ```bash
 # Watch for JavaScript changes and bundle them with Browserify (generates source map)
 npm run watch:js
+```
+
+```bash
+# Watch for scss changes with node-sass ( generates source maps )
+npm run watch:scss
 ```

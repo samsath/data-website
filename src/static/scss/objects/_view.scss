@@ -1,0 +1,9 @@
+/**
+ * View
+ * A partial thats ajaxed in and needs a transition
+ */
+.view {
+  animation: fadeIn 2s ease;
+  -webkit-animation: fadeIn 2s ease;
+  -moz-animation: fadeIn 2s ease;
+}

@@ -1,0 +1,49 @@
+/**
+ * Vote for Policies Data site stylesheet
+ *
+ * IMPORTANT: Currently for simplicity the data site import the main voteforpolicies.org.uk's stylesheet
+ * meaning it inherits all its styles, these styles are included after with an aim to be specific to the data site
+ * while being able to reuse styles from the main site, patterns can be looked up in the styleguide.
+ *
+ * The voteforpolicies styleguide: http://styleguide.voteforpolicies.org.uk
+ *
+ * Far from perfect but keeps us moving for now.
+ *
+ */
+
+
+/**
+ * Objects: Smaller re-usable styles
+ */
+@import 'objects/view';
+@import 'objects/table';
+@import 'objects/empty';
+
+
+/**
+ * Components: A specific UI component
+ */
+@import 'components/search-list';
+@import 'components/tabber';
+
+
+/**
+ * Views: Most specific
+ */
+@import 'views/consituency-search';
+@import 'views/map';
+
+
+/**
+ * Scratch: Stuff below here should be somewhere else but doesn't quite have a home yet
+ */
+.content__wrap {
+    background: #EAEAEA;
+    border-radius: 5px;
+    padding: 1em;
+}
+
+
+#constituencies-list {
+    text-align: left;
+}

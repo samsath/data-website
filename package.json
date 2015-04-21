@@ -7,6 +7,8 @@
     "start": "./node_modules/.bin/docpad-server",
     "test": "./node_modules/karma/bin/karma start",
     "build:js": "./node_modules/.bin/browserify src/static/js/main.js | ./node_modules/.bin/uglifyjs > src/static/dist/js/build.js",
+    "build:scss": "node-sass --output-style compressed --source-map out/css/data.map.scss src/static/scss/data.scss -o out/css",
+    "watch:scss": "node-sass -wr src/static/scss/ --source-map out/css/data.map.scss out/css -o out/css",
     "watch:js": "./node_modules/.bin/watchify --debug src/static/js/main.js -o src/static/dist/js/build.js"
   },
   "repository": {
@@ -47,6 +49,7 @@
     "jquery": "^2.1.3",
     "lodash": "^3.6.0",
     "nimble": "0.0.2",
-    "topojson": "^1.6.19"
+    "topojson": "^1.6.19",
+    "node-sass": "^2.1.1"
   }
 }
