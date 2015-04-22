@@ -1,0 +1,248 @@
+//colours for the style
+$body:#353535;
+$grey:#EAEAEA;
+$lightgrey:#F7F7F7;
+$darkgrey:#353535;
+$postive:#55832A;
+$negative:#832A2A;
+
+// colours of the parties
+$labour:#D50000;
+$green:#75A92D;
+$liberal:#FDBB30;
+$ukip:#800080 ;
+$conservatives:#0087DC ;
+$snp:#000 ;
+$plaid:#3E8424;
+$sinnfein:#006C2A;  
+$sociallabour:#006E51;
+$alliance:#F8CE00;
+
+.controlsection{
+	min-height:400px;
+}
+
+.mapdata-view{
+  	width: 100%;
+  	padding-left: 2pc;
+  	padding-right: 2pc;
+}
+
+.l-grid--split_explorer{
+	margin:0 auto;
+}
+
+.mapleft{
+	width:50%;
+	position: absolute;
+	display:inline-block;
+	float:left;
+}
+
+.mapright{
+	width:50%;
+	position: absolute;
+	display: inline-block;
+	float:right;
+}
+
+.tabpannel-top{
+	.tabpannel-top__button{
+		border:3px solid $grey;
+		text-align: center;
+		color:$grey;
+		cursor:pointer;
+	}
+
+	.active{
+		background-color: $grey;
+		border:3px solid $grey;
+		color:$body;
+	}
+}
+
+.tabpannel-top-content{
+	.tabpannel-top-content__panel{
+		display:none;
+
+		&.active{
+			display:block;
+		}
+	}
+
+	ul.tabpannel-top-content__partytrend__list{
+		padding-left: 0px;
+		padding-right: 0px;
+		
+		li{
+		    text-decoration: none;
+		    float: left;
+		    width: 100%;
+		    list-style: none;
+		    height: 37px;
+		    border-top: 1px solid $lightgrey;
+		    border-bottom: 1px solid $lightgrey;
+		    padding-top: 7px;
+		    cursor:pointer;
+		  }
+
+		  .pt_ch{
+		    float:right;
+		  }
+	}
+}
+
+.tabpannel-content{
+	width:113%;
+	margin: 0px -1.5em;
+	position: relative;
+	top:-35px;
+}
+
+.tabpannel-content__panel{
+	display:none;
+	width:100%;
+	position: relative;
+	background-color:$grey;
+	top:-28px;
+	height:100%;
+	padding:10px;
+	min-height:400px;
+	max-height:500px;
+
+	&.active{
+		display:block;
+	}
+
+	.tabpannel-content-pannel__title{
+		  margin-left: 10px;
+		  border-bottom: 1px solid $lightgrey;
+		  margin-right: 10px;
+		  width: calc(100% - 40px);
+		  position: absolute;
+	}
+
+	.tabpannel-content-partypannel__list{
+		display: block;
+  		position: absolute;
+  		border-bottom: 1px solid $lightgrey;
+	}
+
+	.tabpannel-content__partypannel__list li{
+		list-style:none;
+		margin-left:0;
+		margin-top:5px;
+		margin-bottom:5px;
+	}
+}
+
+.tabpannel-top-content__constituencies__search{
+	width:100%;
+	height:50px;
+	border:4px solid $grey;
+	margin-top: 10px;
+	padding-left:10px;
+	padding-top:6px;
+	position: relative;
+
+	input#constituency-search{
+		border:none;
+		width:80%;
+	}
+	input#constituency-search:focus{
+		border:none;
+		box-shadow: none;
+	}
+	.constsearchicon{
+		color:$grey;
+		  right: 25px;
+		  position: absolute;
+		  top: 10px;
+	}
+
+}
+
+.tabpannel-content__constituencies__return{
+		width:100%;
+		height:350px;
+		overflow-y:scroll;
+
+	}
+
+	.tabpannel-content__constituencies__resultslist{
+			list-style:none;
+			margin-left:0px;
+			width:100%;
+			padding-left: 0px;
+	}
+
+	.tabpannel-content__constituencies__results{
+		list-style: none;
+		background-color: $lightgrey;
+		border:4px solid $lightgrey;
+		width:100%;
+		padding: 10px 10px 10px 10px;
+		
+		
+		.tabpannel-content__constituencies__results-title{
+			display:inline-block;
+		}
+		.tabpannel-content__constituencies__results-arrow{
+			display:inline-block;
+		}
+	}
+
+.fa-arrow-left{
+	padding-right:10px;
+}
+
+.tabpannel-content__issuepannel__list{
+
+}
+
+.tabpannel-content__issuepannel__listchart{
+	  position: absolute;
+	  top: 40px;
+	  list-style: none;
+	  width: 90%;
+	  padding-left: 0px;
+	  columns: 2;
+  	  -webkit-columns: 2;
+      -moz-columns: 2;
+
+	.tabpannel-content__issuepannel__listchart-results{
+		margin-top:10px;
+		margin-bottom:10px;
+		margin-left:5px;
+		margin-right:5px;
+	}
+
+	.tabpannel-content__issuepannel__listchart-text{
+		width:25%;
+		position: absolute;
+	}
+
+	.tabpannel-content__issuepannel__listchart-image{
+		width:40px;
+		height:40px;
+		position: absolute;
+		display:block;
+
+		.crime{
+			background:url(../img/icons/crime.) no-repeat;
+		}
+		.europe{
+			background:url(../img/flag_black_white_high.jpg) no-repeat;
+		}
+	}
+}
+
+@media (max-width:768px){
+	.mapsection{
+		display:none;
+	}
+
+	.controlsection{
+		width:100% !important;
+	}
+}

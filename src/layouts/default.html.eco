@@ -23,9 +23,15 @@
         <!--[if gt IE 8]><!--><link rel="stylesheet" href="<%- @asset('/dist/css/frontend.css/frontend.css') %>"><!--<![endif]-->
         <!-- endbuild -->
 
+         <!-- added for the map section -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <script src="<%- @asset('/dist/js/vendor/jquery-2.1.3.min.js') %>"></script>
+        <!-- end of map section -->
+        
         <link rel="stylesheet" type="text/css" href="<%- @asset('/css/data.css') %>">
-
+        
         <script src="<%- @asset('/dist/js/vendor/modernizr.js') %>"></script>
+        
     </head>
     <body>
 
