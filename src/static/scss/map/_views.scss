@@ -205,22 +205,29 @@ $alliance:#F8CE00;
 	  top: 40px;
 	  list-style: none;
 	  width: 90%;
+	  height:350px;
 	  padding-left: 0px;
 	  columns: 2;
   	  -webkit-columns: 2;
       -moz-columns: 2;
 
 	.tabpannel-content__issuepannel__listchart-results{
-		margin-top:10px;
-		margin-bottom:10px;
+		margin-top:15px;
+		margin-bottom:15px;
 		margin-left:5px;
 		margin-right:5px;
+		width: 59%;
+  		height: 35px;
 	}
 
 	.tabpannel-content__issuepannel__listchart-text{
-		width:25%;
-		position: absolute;
+		word-break:break-word;
+		width:200px;
+		display:block;
+		padding-left:40px;
 	}
+
+
 
 	.tabpannel-content__issuepannel__listchart-image{
 		width:40px;
@@ -233,6 +240,30 @@ $alliance:#F8CE00;
 		}
 		.europe{
 			background:url(../img/flag_black_white_high.jpg) no-repeat;
+		}
+		.democrasy{
+
+		}
+		.foreign{
+
+		}
+		.economy{
+
+		}
+		.health{
+
+		}
+		.education{
+
+		}
+		.immigration{
+
+		}
+		.environment{
+
+		}
+		.welfare{
+			
 		}
 	}
 }
