@@ -1,6 +1,7 @@
 .DS_Store
 .idea
 bower_components
+build
 node_modules
 out
 src/static/dist/js/build.js

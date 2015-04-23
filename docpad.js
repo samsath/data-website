@@ -9,7 +9,25 @@ var docpadConfig = {
         },
         assets: {
             enabled: true,
-            retainName: 'yes'
+            retainName: 'yes',
+            environments: {
+                development: {
+                    enabled: false
+                }
+            }
+        }
+    },
+    environments: {
+        production: {
+            outPath: 'build'
+        },
+        development: {
+            templateData: {
+                // Stub the asset plugin for development
+                asset: function(assetPath) {
+                    return assetPath;
+                }
+            }
         }
     }
 };
