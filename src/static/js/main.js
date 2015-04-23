@@ -1,6 +1,4 @@
 'use strict';
-require('./map/jquery-2.1.3.min.js');
-require('./map/bootstrap.min.js');
 var Grapnel = require('grapnel');
 
 var navCollapsedClass = 'navigation--collapsed';
