@@ -172,6 +172,8 @@ ul.data_tab_sections{
     margin-top: 5px;
     margin-bottom: 5px;
     padding:10px;
+    display: table-row;
+    height: 70px;
   }
   .data_tab_pannels_issuelist-item-wrapper{
     position: relative;
@@ -185,17 +187,18 @@ ul.data_tab_sections{
     float: left;
     background-color: black;
     top: -12px;
-    &.crime{background:url(../../img/parties/conservatives.png) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.europe{background:url(../../img/parties/labour.png) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.democracy{background:url(../../img/parties/green-party.png) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.foreign{background:url(../../img/parties/liberal-democrats.png) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.economy{background:url(../../img/parties/plaid-cymru.png) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.health{background:url(../../img/parties/scottish-green-party.png) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.education{background:url(../../img/parties/scottish-national-party.png) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.immigration{background:url(../../img/parties/ukip.png) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.environment{background:url(../../img/parties/ukip.png) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.welfare{background:url(../../img/parties/ukip.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.crime{background:url(../../img/issues/crime.svg) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.europe{background:url(../../img/issues/europe.svg) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.democracy{background:url(../../img/issues/democrscy.svg) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.foreign{background:url(../../img/issues/defence.svg) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.economy{background:url(../../img/issues/economy.svg) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.health{background:url(../../img/issues/health.svg) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.education{background:url(../../img/issues/education.svg) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.immigration{background:url(../../img/issues/immigration.svg) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.environment{background:url(../../img/issues/environment.svg) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.welfare{background:url(../../img/issues/welfare.svg) no-repeat; background-size: 40px 40px; background-position: center;}
   }
+
 
   .data_tab_pannels_issuelist-item-title{
     margin:5px;
