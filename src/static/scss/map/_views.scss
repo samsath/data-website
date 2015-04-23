@@ -50,6 +50,10 @@ ol.tabpannel-top{
   }
 }
 
+.marb40{
+  margin-bottom: 40px;
+}
+
 .tabpannel-content-list{
   display:none;
 }
@@ -186,18 +190,20 @@ ul.data_tab_sections{
     height: 40px;
     float: left;
     background-color: black;
-    top: -12px;
-    &.crime{background:url(../../img/issues/crime.svg) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.europe{background:url(../../img/issues/europe.svg) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.democracy{background:url(../../img/issues/democrscy.svg) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.foreign{background:url(../../img/issues/defence.svg) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.economy{background:url(../../img/issues/economy.svg) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.health{background:url(../../img/issues/health.svg) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.education{background:url(../../img/issues/education.svg) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.immigration{background:url(../../img/issues/immigration.svg) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.environment{background:url(../../img/issues/environment.svg) no-repeat; background-size: 40px 40px; background-position: center;}
-    &.welfare{background:url(../../img/issues/welfare.svg) no-repeat; background-size: 40px 40px; background-position: center;}
+    top: -5px;
+    left:5px;
+    &.crime{background:url(../../img/issues/crime.svg) no-repeat; background-size: 100px 100px; background-position: center;}
+    &.europe{background:url(../../img/issues/europe.svg) no-repeat; background-size:  100px 100px; background-position: center;}
+    &.democracy{background:url(../../img/issues/democrscy.svg) no-repeat; background-size:  100px 100px; background-position: center;}
+    &.foreign{background:url(../../img/issues/defence.svg) no-repeat; background-size: 100px 100px; background-position: center;}
+    &.economy{background:url(../../img/issues/economy.svg) no-repeat; background-size: 100px 100px; background-position: center;}
+    &.health{background:url(../../img/issues/health.svg) no-repeat; background-size: 100px 100px; background-position: center;}
+    &.education{background:url(../../img/issues/education.svg) no-repeat; background-size: 100px 100px; background-position: center;}
+    &.immigration{background:url(../../img/issues/immigration.svg) no-repeat; background-size: 100px 100px; background-position: center;}
+    &.environment{background:url(../../img/issues/environment.svg) no-repeat; background-size: 100px 100px; background-position: center;}
+    &.welfare{background:url(../../img/issues/welfare.svg) no-repeat; background-size:  100px 100px; background-position: center;}
   }
+
 
 
   .data_tab_pannels_issuelist-item-title{
@@ -219,7 +225,85 @@ ul.data_tab_sections{
 .mapsection_mobile{
   display:none;
 }
+
+
+.tabpannel-constituentlist-pannel__list{
+  column:2;
+  -webkit-columns:2;
+  padding-left:0;
+
+  li{
+    list-style: none;
+    margin-bottom: 5px;
+    padding: 10px;
+    height: 70px;
+    width:49%;
+  }
+
+  .tabpannel-constituentlist-pannel__wrapper{
+    position: relative;
+    display:inline-block;
+
+    .tabpannel-constituentlist-pannel__color{
+      width:10px;
+      height:30px;
+      position: absolute;
+
+      &.labour{background-color:$labour;}
+      &.green{background-color:$green;}
+      &.liberal{background-color:$liberal;}
+      &.ukip{background-color:$ukip;}
+      &.conservatives{background-color:$conservatives;}
+      &.snp{background-color:$snp;}
+      &.plaid{background-color:$plaid;}
+      &.sinnfein{background-color:$sinnfein;}
+      &.sociallabour{background-color:$sociallabour;}
+      &.alliance{background-color:$alliance;}
+    }
+
+    .tabpannel-constituentlist-pannel__name{
+      text-align: left;
+      font-size: 16px;
+      padding-left: 20px;
+      line-height: 30px;
+      vertical-align: middle;
+    }
+  }
+
+}
+
+@media(max-width:1337px){
+  .tabpannel-top-content__partytrend__list{
+    font-size:16px;
+  }
+
+  h4.tabpannel-content-pannel__title{
+    font-size:16px;
+  }
+
+  .tabpannel-top{
+    font-size:16px;
+  }
+}
+
+
 @media(max-width:992px){
+  .tabpannel-top{
+    font-size:14px;
+  }
+
+  .tabpannel-top-content__partytrend__list{
+    font-size:14px;
+  }
+
+  h4.tabpannel-content-pannel__title{
+    font-size:14px;
+  }
+
+  .data_tab_pannels_issuelist{
+    columns:1;
+    -webkit-columns:1;
+  }
 
 }
 
@@ -237,5 +321,15 @@ ul.data_tab_sections{
     display:block;
     width:100%;
   }
+
+  .data_tab_pannels_issuelist-item-title{
+    font-size:14px;
+  }
+
+  .data_tab_pannels_issuelist{
+    columns:1;
+    -webkit-columns:1;
+  }
+
 }
 
