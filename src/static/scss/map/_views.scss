@@ -18,262 +18,221 @@ $sinnfein:#006C2A;
 $sociallabour:#006E51;
 $alliance:#F8CE00;
 
-.controlsection{
-	min-height:400px;
+div#left_column_half{
+  width:50%;
+  float:left;
 }
 
-.mapdata-view{
-  	width: 100%;
-  	padding-left: 2pc;
-  	padding-right: 2pc;
+div#right_column_half{
+  width:50%;
+  float:right;
 }
 
-.l-grid--split_explorer{
-	margin:0 auto;
+ol.tabpannel-top{
+  padding-left: 0px;
+  padding-right: 0px;
+  li{
+    list-style: none;
+    border:3px solid $grey;
+    text-align: center;
+    color:$grey;
+    cursor:pointer;
+    display: inline;
+    float: left;
+    width:50%;
+
+    &.active{
+      background-color: $grey;
+      border:3px solid $grey;
+      color:$body;
+    }
+
+  }
 }
 
-.mapleft{
-	width:50%;
-	position: absolute;
-	display:inline-block;
-	float:left;
+.tabpannel-content-list{
+  display:none;
 }
 
-.mapright{
-	width:50%;
-	position: absolute;
-	display: inline-block;
-	float:right;
+.tabpannel-content-list.active{
+  display:block !important;
 }
 
-.tabpannel-top{
-	.tabpannel-top__button{
-		border:3px solid $grey;
-		text-align: center;
-		color:$grey;
-		cursor:pointer;
-	}
-
-	.active{
-		background-color: $grey;
-		border:3px solid $grey;
-		color:$body;
-	}
+ul.tabpannel-content{
+  padding-left: 0px;
+  padding-right: 0px;
+  list-style: none;
 }
 
-.tabpannel-top-content{
-	.tabpannel-top-content__panel{
-		display:none;
+ul.tabpannel-top-content__partytrend__list{
+  padding-left:0px;
+  padding-right: 0px;
+  li{
+    text-decoration: none;
+    float: left;
+    width: 100%;
+    list-style: none;
+    height: 37px;
+    border-top: 1px solid $lightgrey;
+    border-bottom: 1px solid $lightgrey;
+    padding-top: 7px;
+    cursor:pointer;
+    text-align:left;
+  }
 
-		&.active{
-			display:block;
-		}
-	}
-
-	ul.tabpannel-top-content__partytrend__list{
-		padding-left: 0px;
-		padding-right: 0px;
-		
-		li{
-		    text-decoration: none;
-		    float: left;
-		    width: 100%;
-		    list-style: none;
-		    height: 37px;
-		    border-top: 1px solid $lightgrey;
-		    border-bottom: 1px solid $lightgrey;
-		    padding-top: 7px;
-		    cursor:pointer;
-		  }
-
-		  .pt_ch{
-		    float:right;
-		  }
-	}
+  .pt_ch{
+    float:right;
+  }
 }
 
-.tabpannel-content{
-	width:113%;
-	margin: 0px -1.5em;
-	position: relative;
-	top:-35px;
+ul.data_tab_sections{
+  padding-left:0px;
+  padding-right:0px;
+  min-height:500px;
+  position: relative;
+
+  li.data_tab_pannels{
+    text-decoration: none;
+    list-style: none;
+    float:left;
+    width:100%;
+    height:100%;
+    display:none;
+    position: absolute;
+  }
+
+  li.data_tab_pannels.active{
+    display:block;
+  }
+
+  .darkpannel{
+    background-color: $grey;
+    padding:10px;
+
+    h4{
+      width: 100%;
+      border-bottom: 2px solid #F7F7F7;
+      text-align: right;
+      height: 40px;
+      margin-top: 10px;
+    }
+
+    .tabpannel-content_arrow{
+      color:$darkgrey;
+      float:left;
+    }
+  }
 }
 
-.tabpannel-content__panel{
+.data_tab_pannels_partylist{
+  padding-left:0px;
+
+  .data_tab_pannels_partylist-item{
+    list-style: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding:10px;
+  }
+  .data_tab_pannels_partylist-item-wrapper{
+    position: relative;
+
+  }
+
+  .data_tab_pannels_partylist-item-image{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    float: left;
+    background-color: black;
+    top: -12px;
+    &.conservatives{background:url(../../img/parties/conservatives.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.labour{background:url(../../img/parties/labour.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.green{background:url(../../img/parties/green-party.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.liberal{background:url(../../img/parties/liberal-democrats.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.plaid{background:url(../../img/parties/plaid-cymru.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.scottishgreen{background:url(../../img/parties/scottish-green-party.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.snp{background:url(../../img/parties/scottish-national-party.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.ukip{background:url(../../img/parties/ukip.png) no-repeat; background-size: 40px 40px; background-position: center;}
+  }
+
+  .data_tab_pannels_partylist-item-title{
+    margin:5px;
+    padding-left: 60px;
+    text-align: left;
+  }
+}
+
+.data_tab_pannels_issuelist{
+  padding-left:0px;
+  columns:2;
+  -webkit-columns:2;
+
+  .data_tab_pannels_issuelist-item{
+    list-style: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding:10px;
+  }
+  .data_tab_pannels_issuelist-item-wrapper{
+    position: relative;
+
+  }
+
+  .data_tab_pannels_issuelist-item-image{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    float: left;
+    background-color: black;
+    top: -12px;
+    &.crime{background:url(../../img/parties/conservatives.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.europe{background:url(../../img/parties/labour.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.democracy{background:url(../../img/parties/green-party.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.foreign{background:url(../../img/parties/liberal-democrats.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.economy{background:url(../../img/parties/plaid-cymru.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.health{background:url(../../img/parties/scottish-green-party.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.education{background:url(../../img/parties/scottish-national-party.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.immigration{background:url(../../img/parties/ukip.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.environment{background:url(../../img/parties/ukip.png) no-repeat; background-size: 40px 40px; background-position: center;}
+    &.welfare{background:url(../../img/parties/ukip.png) no-repeat; background-size: 40px 40px; background-position: center;}
+  }
+
+  .data_tab_pannels_issuelist-item-title{
+    margin:5px;
+    padding-left: 60px;
+    text-align: left;
+  }
+}
+
+.tabpannel-content-pannel__wrap{
+  position: relative;
+  height: 80%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 96%;
+}
+
+
+.mapsection_mobile{
+  display:none;
+}
+@media(max-width:992px){
+
+}
+
+@media (max-width: 768px){
+  div#left_column_half{
 	display:none;
+  }
+
+  div#right_column_half{
 	width:100%;
-	position: relative;
-	background-color:$grey;
-	top:-28px;
-	height:100%;
-	padding:10px;
-	min-height:400px;
-	max-height:500px;
+	float:left;
+  }
 
-	&.active{
-		display:block;
-	}
-
-	.tabpannel-content-pannel__title{
-		  margin-left: 10px;
-		  border-bottom: 1px solid $lightgrey;
-		  margin-right: 10px;
-		  width: calc(100% - 40px);
-		  position: absolute;
-	}
-
-	.tabpannel-content-partypannel__list{
-		display: block;
-  		position: absolute;
-  		border-bottom: 1px solid $lightgrey;
-	}
-
-	.tabpannel-content__partypannel__list li{
-		list-style:none;
-		margin-left:0;
-		margin-top:5px;
-		margin-bottom:5px;
-	}
+  .mapsection_mobile{
+    display:block;
+    width:100%;
+  }
 }
 
-.tabpannel-top-content__constituencies__search{
-	width:100%;
-	height:50px;
-	border:4px solid $grey;
-	margin-top: 10px;
-	padding-left:10px;
-	padding-top:6px;
-	position: relative;
-
-	input#constituency-search{
-		border:none;
-		width:80%;
-	}
-	input#constituency-search:focus{
-		border:none;
-		box-shadow: none;
-	}
-	.constsearchicon{
-		color:$grey;
-		  right: 25px;
-		  position: absolute;
-		  top: 10px;
-	}
-
-}
-
-.tabpannel-content__constituencies__return{
-		width:100%;
-		height:350px;
-		overflow-y:scroll;
-
-	}
-
-	.tabpannel-content__constituencies__resultslist{
-			list-style:none;
-			margin-left:0px;
-			width:100%;
-			padding-left: 0px;
-	}
-
-	.tabpannel-content__constituencies__results{
-		list-style: none;
-		background-color: $lightgrey;
-		border:4px solid $lightgrey;
-		width:100%;
-		padding: 10px 10px 10px 10px;
-		
-		
-		.tabpannel-content__constituencies__results-title{
-			display:inline-block;
-		}
-		.tabpannel-content__constituencies__results-arrow{
-			display:inline-block;
-		}
-	}
-
-.fa-arrow-left{
-	padding-right:10px;
-}
-
-.tabpannel-content__issuepannel__list{
-
-}
-
-.tabpannel-content__issuepannel__listchart{
-	  position: absolute;
-	  top: 40px;
-	  list-style: none;
-	  width: 90%;
-	  height:350px;
-	  padding-left: 0px;
-	  columns: 2;
-  	  -webkit-columns: 2;
-      -moz-columns: 2;
-
-	.tabpannel-content__issuepannel__listchart-results{
-		margin-top:15px;
-		margin-bottom:15px;
-		margin-left:5px;
-		margin-right:5px;
-		width: 59%;
-  		height: 35px;
-	}
-
-	.tabpannel-content__issuepannel__listchart-text{
-		word-break:break-word;
-		width:200px;
-		display:block;
-		padding-left:40px;
-	}
-
-
-
-	.tabpannel-content__issuepannel__listchart-image{
-		width:40px;
-		height:40px;
-		position: absolute;
-		display:block;
-
-		.crime{
-			background:url(../img/icons/crime.) no-repeat;
-		}
-		.europe{
-			background:url(../img/flag_black_white_high.jpg) no-repeat;
-		}
-		.democrasy{
-
-		}
-		.foreign{
-
-		}
-		.economy{
-
-		}
-		.health{
-
-		}
-		.education{
-
-		}
-		.immigration{
-
-		}
-		.environment{
-
-		}
-		.welfare{
-			
-		}
-	}
-}
-
-@media (max-width:768px){
-	.mapsection{
-		display:none;
-	}
-
-	.controlsection{
-		width:100% !important;
-	}
-}

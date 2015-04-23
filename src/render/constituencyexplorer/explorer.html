@@ -1,0 +1,249 @@
+---
+layout: "default"
+title: "Constituency explorer"
+---
+
+
+<div class="hero">
+    <div class="l-constrain">
+        <h1 class="hero__impact">
+            Vote for Policies Data
+        </h1>
+        <h2 class="hero__strapline">
+            Constituency explorer
+        </h2>
+
+        <div id="left_column_half">
+            <section id="map">
+            </section>
+        </div>
+        <div id="right_column_half">
+            <section id="data_tab">
+                <ul class="data_tab_sections">
+                    <li class="data_tab_pannels active" id="pannelmenu">
+                        <ol class="tabpannel-top">
+                            <li class="active" id="partytrend" >Party Trend</li>
+                            <li id="constituencies" >Constituencies</li>
+                        </ol>
+
+                        <ul class="tabpannel-content">
+                            <li class="tabpannel-content-list active" id="partytrend">
+                                <ul class="tabpannel-top-content__partytrend__list">
+                                    <li data-target="partypannel">Strength of policial parties across the UK <i class="fa fa-chevron-right pt_ch"></i></li>
+                                    <li data-target="issuepannel">Leading party by issue <i class="fa fa-chevron-right pt_ch"></i></li>
+                                    <li data-target="leadlistpannel">Constituencies lead parties <i class="fa fa-chevron-right pt_ch"></i></li>
+                                    <li data-target="marginallistpannel">Leading parties in the marginal constituencies <i class="fa fa-chevron-right pt_ch"></i></li>
+                                </ul>
+                            </li>
+                            <li class="tabpannel-content-list" id="constituencies">
+                                <script id="constituency-list-template" type="text/x-handlebars-template">
+                                    <div class="l-constrain l-constrain--narrow l-constrain--no-overflow">
+                                        <div id="constituency-search" class="search-list constituency-search">
+                                            <fieldset>
+                                                <label for="consituency-search-input" class="form__label u-visuallyhidden">Search for a
+                                                    consitutency:</label>
+                                                <input id="consituency-search-input" class="search form__input"
+                                                       placeholder="Enter a constituency name"/>
+                                            </fieldset>
+                                            <ul class="search-list__results list">
+                                                {{#each constituencies}}
+                                                <li>
+                                                    <a href="#{{constituency_slug}}" data-constituency-slug="{{constituency_slug}}"
+                                                       data-constituency-name="{{constituency_name}}" class="constituency">{{constituency_name}}</a>
+                                                </li>
+                                                {{/each}}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </script>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="data_tab_pannels darkpannel" id="partypannel">
+                        <h4 class="tabpannel-content-pannel__title">
+                            <i class="fa fa-arrow-left tabpannel-content_arrow"></i>Strength of policial parties across the UK
+                        </h4>
+                        <div class="tabpannel-content-pannel__wrap">
+                            <ul class="data_tab_pannels_partylist">
+                                <li class="data_tab_pannels_partylist-item conservatives">
+                                    <div class="data_tab_pannels_partylist-item-wrapper">
+                                        <div class="data_tab_pannels_partylist-item-image conservatives"></div>
+                                        <h5 class="data_tab_pannels_partylist-item-title">Conservatives</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_partylist-item labour">
+                                    <div class="data_tab_pannels_partylist-item-wrapper">
+                                        <div class="data_tab_pannels_partylist-item-image labour"></div>
+                                        <h5 class="data_tab_pannels_partylist-item-title">Labour</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_partylist-item green">
+                                    <div class="data_tab_pannels_partylist-item-wrapper">
+                                        <div class="data_tab_pannels_partylist-item-image green"></div>
+                                        <h5 class="data_tab_pannels_partylist-item-title">Green Party</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_partylist-item liberal">
+                                    <div class="data_tab_pannels_partylist-item-wrapper">
+                                        <div class="data_tab_pannels_partylist-item-image liberal"></div>
+                                        <h5 class="data_tab_pannels_partylist-item-title">Liberal Democrats</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_partylist-item plaid">
+                                   <div class="data_tab_pannels_partylist-item-wrapper">
+                                        <div class="data_tab_pannels_partylist-item-image plaid"></div>
+                                        <h5 class="data_tab_pannels_partylist-item-title">Plaid Cymru</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_partylist-item scottishgreen">
+                                   <div class="data_tab_pannels_partylist-item-wrapper">
+                                        <div class="data_tab_pannels_partylist-item-image scottishgreen"></div>
+                                        <h5 class="data_tab_pannels_partylist-item-title">Scottish Green Party</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_partylist-item snp">
+                                   <div class="data_tab_pannels_partylist-item-wrapper">
+                                        <div class="data_tab_pannels_partylist-item-image snp"></div>
+                                        <h5 class="data_tab_pannels_partylist-item-title">Scottish National Party</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_partylist-item ukip">
+                                   <div class="data_tab_pannels_partylist-item-wrapper">
+                                        <div class="data_tab_pannels_partylist-item-image ukip"></div>
+                                        <h5 class="data_tab_pannels_partylist-item-title">UKIP</h5>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="data_tab_pannels darkpannel" id="issuepannel">
+                        <h4 class="tabpannel-content-pannel__title">
+                            <i class="fa fa-arrow-left tabpannel-content_arrow"></i>Leading party by issue
+                        </h4>
+                        <div class="tabpannel-content-pannel__wrap">
+                            <ul class="data_tab_pannels_issuelist">
+                                <li class="data_tab_pannels_issuelist-item crime">
+                                   <div class="data_tab_pannels_issuelist-item-wrapper">
+                                        <div class="data_tab_pannels_issuelist-item-image crime"></div>
+                                        <h5 class="data_tab_pannels_issuelist-item-title">Crime</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_issuelist-item europe">
+                                   <div class="data_tab_pannels_issuelist-item-wrapper">
+                                        <div class="data_tab_pannels_issuelist-item-image europe"></div>
+                                        <h5 class="data_tab_pannels_issuelist-item-title">Europe</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_issuelist-item democracy">
+                                   <div class="data_tab_pannels_issuelist-item-wrapper">
+                                        <div class="data_tab_pannels_issuelist-item-image democracy"></div>
+                                        <h5 class="data_tab_pannels_issuelist-item-title">Democracy</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_issuelist-item foreign">
+                                   <div class="data_tab_pannels_issuelist-item-wrapper">
+                                        <div class="data_tab_pannels_issuelist-item-image foreign"></div>
+                                        <h5 class="data_tab_pannels_issuelist-item-title">Foreign Policy / Defence</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_issuelist-item economy">
+                                   <div class="data_tab_pannels_issuelist-item-wrapper">
+                                        <div class="data_tab_pannels_issuelist-item-image economy"></div>
+                                        <h5 class="data_tab_pannels_issuelist-item-title">Economy</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_issuelist-item health">
+                                   <div class="data_tab_pannels_issuelist-item-wrapper">
+                                        <div class="data_tab_pannels_issuelist-item-image health"></div>
+                                        <h5 class="data_tab_pannels_issuelist-item-title">Health</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_issuelist-item education">
+                                   <div class="data_tab_pannels_issuelist-item-wrapper">
+                                        <div class="data_tab_pannels_issuelist-item-image education"></div>
+                                        <h5 class="data_tab_pannels_issuelist-item-title">Education</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_issuelist-item immigration">
+                                   <div class="data_tab_pannels_issuelist-item-wrapper">
+                                        <div class="data_tab_pannels_issuelist-item-image immigration"></div>
+                                        <h5 class="data_tab_pannels_issuelist-item-title">Immigration</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_issuelist-item environment">
+                                   <div class="data_tab_pannels_issuelist-item-wrapper">
+                                        <div class="data_tab_pannels_issuelist-item-image environment"></div>
+                                        <h5 class="data_tab_pannels_issuelist-item-title">Environment</h5>
+                                    </div>
+                                </li>
+                                <li class="data_tab_pannels_issuelist-item welfare">
+                                   <div class="data_tab_pannels_issuelist-item-wrapper">
+                                        <div class="data_tab_pannels_issuelist-item-image welfare"></div>
+                                        <h5 class="data_tab_pannels_issuelist-item-title">Welfare</h5>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="data_tab_pannels darkpannel" id="leadlistpannel">
+                        <h4 class="tabpannel-content-pannel__title">
+                            <i class="fa fa-arrow-left tabpannel-content_arrow"></i>Constituencies lead parties
+                        </h4>
+                        <div class="tabpannel-content-pannel__wrap">
+                            <!-- constituency list here -->
+                        </div>
+                    </li>
+                    <li class="data_tab_pannels darkpannel" id="marginallistpannel">
+                        <h4 class="tabpannel-content-pannel__title">
+                            <i class="fa fa-arrow-left tabpannel-content_arrow"></i>Leading parties in the marginal constituencies
+                        </h4>
+                        <div class="tabpannel-content-pannel__wrap">
+                            <!-- constituency list here -->
+                        </div>
+                    </li>
+            </section>
+        </div>
+    </div>
+    <div class="mapsection_mobile">
+        <section id="map"></section>
+    </div>
+</div>
+
+
+<script>
+$('.tabpannel-top li').on('click',function(){
+
+	var str = '.tabpannel-content li#'+$(this).attr('id');
+	$('.tabpannel-top li').each(function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+		}
+	});
+	$(this).addClass('active');
+
+	$('.tabpannel-content li').each(function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+		}
+	});
+	$(str).addClass('active');
+});
+
+
+$('.tabpannel-top-content__partytrend__list li').on('click',function(){
+	$('.data_tab_pannels').each(function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+		}
+	});
+   $('.data_tab_pannels#'+$(this).attr('data-target')).addClass('active');
+});
+$('.tabpannel-content-pannel__title').on('click',function(){
+   $('.data_tab_pannels').each(function(){
+   		if($(this).hasClass('active')){
+   			$(this).removeClass('active');
+   		}
+   	});
+   	$('.data_tab_pannels#pannelmenu').addClass('active');
+});
+</script>
